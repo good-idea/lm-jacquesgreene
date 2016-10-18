@@ -1,0 +1,114 @@
+include partials/head
+body!= meta.additional_head
+
+header.ferrari
+	.header__info
+		h4 #{ content.mailer.headerTitle }
+	.signup
+		h5.message
+		form.signup__form.cf(action='/mcsubscribe')
+			input.signup__input(
+				type="text"
+				name="email_address"
+				placeholder= content.mailer.headerPlaceholder
+				spellcheck="false"
+			)
+			button.arrow(type="submit")
+				svg(xmlns='http://www.w3.org/2000/svg', width='30', height='15', viewbox='0 0 30 15')
+					g
+						line.cls-1(x1='1.65', y1='7.5', x2='28.35', y2='7.5')
+						polyline.cls-1(points='21.35 14.5 28.35 7.5 21.35 0.5')
+		.thinking__dots
+			.thinking__dot
+			.thinking__dot
+			.thinking__dot
+		.signup__thank-you
+			h5 #{ content.mailer.headerThankyou }
+
+section.deny.full-height.scrollTo(
+	data-scrollTo="#playerContainer"
+	data-scrollTo-auto="7000"
+)
+	.screen
+	.section-background(
+		style="background-image:url(" + content.main.backgroundOne + ")"
+	)
+	.text-repeater.bg-scroller(data-reverse="true")
+
+section.photo-strip
+	.portrait
+		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+	.portrait
+		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+	.portrait
+		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+	.portrait
+		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+
+section#playerContainer.full-height.player(
+	data-track= content.player.streamUrl
+)
+	.player__inner
+		.player__header
+			each item in content.player.header
+				h4
+					a(target="_blank" href=item.link) #{ item.copy }
+
+		#player.player__buttons
+			.player__playpause
+				svg.player__controls.play(width='80', height='80', viewbox='0 0 80 80')
+					polygon(points='75 40 5 75 5 5 75 40 75 40')
+				svg.player__controls.pause(width='80', height='80', viewbox='0 0 80 80')
+					rect(x='5', y='5', width='70', height='70')
+
+		.player__footer
+			each item in content.player.footer
+				h4 #{ item.copy }
+
+	audio#track(src="" preload autobuffer)
+	.screen
+	.player__pulse
+	.player__scrubber
+
+section.jacques.full-height
+	div.screen
+	.section-background(
+		style="background-image:url(" + content.main.backgroundTwo + ")"
+	)
+
+section.photo-strip
+	.portrait
+		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+	.portrait
+		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+	.portrait
+		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+	.portrait
+		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+
+section.footer
+	.signup
+		h5.message
+		form.signup__form.cf(action='/mcsubscribe')
+			input.signup__input(type='text', name='email_address', placeholder=content.mailer.footerPlaceholder, spellcheck='false')
+			button.arrow(type='submit')
+				svg(xmlns='http://www.w3.org/2000/svg', width='30', height='15', viewbox='0 0 30 15')
+					g
+						line.cls-1(x1='1.65', y1='7.5', x2='28.35', y2='7.5')
+						polyline.cls-1(points='21.35 14.5 28.35 7.5 21.35 0.5')
+		.thinking__dots
+			.thinking__dot
+			.thinking__dot
+			.thinking__dot
+		.signup__thank-you
+			h5 #{content.mailer.footerThankyou}
+
+	.footer__socials
+		for item in content.mailer.footerLinks
+			h4
+				a(target="_blank" href=item.link) #{item.copy}
+
+
+script(type="text/javascript" src="/js/main.js?v=1.1")
+
+

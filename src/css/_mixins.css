@@ -1,0 +1,33 @@
+@define-mixin abs-top-left {
+	position:absolute;
+	top:0; left:0;
+}
+@define-mixin full-size {
+	width:100%; height:100%;
+}
+@define-mixin fixed-full-size {
+	position:fixed;
+	top:0; right:0; bottom:0; left:0;
+}
+@define-mixin abs-full-size {
+	position:absolute;
+	top:0; right:0; bottom:0; left:0;
+}
+@define-mixin abs-center {
+	position:absolute;
+	top:50%; left:50%;
+	transform:translate(-50%, -50%) translateZ(0) scale(1, 1);
+}
+@define-mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+@define-mixin invisible {
+	opacity: 0;
+	pointer-events: none;
+}
+@define-mixin visible {
+	opacity: 1;
+	pointer-events: initial;
+}

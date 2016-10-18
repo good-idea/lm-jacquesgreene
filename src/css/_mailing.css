@@ -1,0 +1,133 @@
+
+/*
+// :::Mailing
+//-------------------------------------------------- */
+
+img.eclair {
+	margin-top: 12rem;
+	mix-blend-mode: darken;
+}
+
+.signup {
+	width: calc(100% - 2rem);
+	max-width: 29rem;
+	margin: 0 auto;
+	text-align: center;
+	transition: .3s;
+	position: relative;
+	perspective: 20rem;
+	border: 1px solid black;
+
+	form, input {
+		height: 100%;
+	}
+
+	input, button {
+		display: block;
+		margin: 0 auto;
+		font-family: $mono;
+	}
+
+	input[type="text"] {
+		width: 100%;
+		text-align: center;
+		background-color: transparent;
+		padding: 1.8rem 0;
+		border: 0;
+		color: black;
+		transition: .3s;
+
+		&:focus::placeholder, &:focus::-webkit-input-placeholder {
+			color: transparent;
+		}
+
+		&::placeholder, &::-webkit-input-placeholder {
+			color: black;
+			font-weight: 800;
+			empty-cells: initial;
+		}
+	}
+
+	button[type="submit"] {
+		border: 0;
+		padding: 0;
+		background: initial;
+
+		h3 {
+			font-weight: 600;
+			transition: .2s;
+		}
+
+	}
+
+	.message {
+		@mixin invisible;
+		position: absolute;
+		bottom: calc(100% + 1rem);
+		width: 100%;
+		text-align: center;
+		transition: .3s;
+
+		&.visible { @mixin visible; }
+	}
+}
+
+button.arrow {
+	@mixin invisible;
+	cursor: pointer;
+	position: absolute;
+	right: 1.75rem;
+	top: 50%;
+	width: 2.25rem;
+	height: 100%;
+	transform: translateY(-50%);
+	transition: .3s;
+
+	svg {
+		width: 100%;
+		height: 100%;
+		stroke: black;
+		stroke-width: 1.5px;
+		fill: none;
+	}
+}
+
+.signup__thank-you {
+	@mixin abs-full-size;
+	@mixin flex-center;
+	z-index: 100;
+	transition-delay: .2s;
+	transition: .3s;
+	transform: rotateX(90deg);
+	opacity: 0;
+}
+
+
+/*
+// :::Form States
+//-------------------------------------------------- */
+
+.valid button.arrow {
+	@mixin visible;
+}
+
+.signup.thinking {
+	pointer-events: none;
+
+	.signup__form, button.arrow {
+		@mixin invisible;
+	}
+
+	.thinking__dots {
+		opacity: 1;
+	}
+}
+
+.signup.success {
+	.thinking__dots { opacity: 0; }
+
+	.signup__thank-you {
+		opacity: 1;
+		transform: none;
+	}
+}

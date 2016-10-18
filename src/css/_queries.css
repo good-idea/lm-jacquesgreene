@@ -1,0 +1,57 @@
+@media screen and (max-width: 630px) {
+	
+	header {
+		padding: 2rem 1rem;
+		height: 14rem;
+	}
+
+	.text-repeater {
+		background-size: calc(100% - 3rem);
+	}
+
+	section.photo-strip {
+		background: black;
+		padding: 1.5rem .75rem;
+
+		.portrait { flex-basis: calc(33% - 1.5rem); }
+		.portrait:nth-of-type(3) { display: none; }
+	}
+
+	li.tourdate {
+		padding: 0 1.5rem;
+	}
+
+	li.tourdate a {
+		align-items: center;
+
+		span.date { flex-basis: 9rem; text-transform: uppercase; }
+		span.place { flex-direction: column; flex-basis: 17rem; text-align: center; }
+		span.ticket-link { flex-basis: 9rem; text-align: right; }
+
+	}
+
+	.footer__socials {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		justify-content: space-between;
+
+		h4 + h4 { margin-top: 1rem; }
+	}
+
+}
+
+@media screen and (max-width: 400px) {
+	
+	li.tourdate a {
+		display: flex;
+		justify-content: space-between;
+		padding: 1.7rem 0;
+		width: 100%;
+
+		span.date { flex-basis: 6rem; text-transform: uppercase; }
+		span.place { flex-direction: column; flex-basis: 17rem; text-align: center; }
+		/* span.venue, span.location { flex-basis: 20rem; } */
+		span.ticket-link { flex-basis: 6rem; text-align: right; }
+	}
+}
