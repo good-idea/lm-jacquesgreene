@@ -1,14 +1,14 @@
 doctype html
 html
 	title= meta.title
-	meta(name="description" content=meta.meta_description)
-	meta(name="keywords" content=meta.meta_tags)
-	meta(property="og:title" content=meta.title)
-	meta(property="og:description" content=meta.og_description)
-	meta(property="og:url" content=meta.canonical)
-	meta(property="og:image" content=meta.og_image)
+	meta(name="description" content=content.meta.meta_description)
+	meta(name="keywords" content=content.meta.meta_tags)
+	meta(property="og:title" content=content.meta.title)
+	meta(property="og:description" content=content.meta.og_description)
+	meta(property="og:url" content=content.meta.canonical)
+	meta(property="og:image" content=content.meta.og_image)
 	meta(property="og:type" content="website")
 	link(href="/css/main.css" type="text/css" rel="stylesheet")
-	link(href=meta.favicon, type="image/png" rel="icon")
+	link(href=content.meta.favicon, type="image/png" rel="icon")
 
 	script(src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js")
