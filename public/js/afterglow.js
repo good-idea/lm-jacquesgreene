@@ -13381,7 +13381,8 @@ var Scroller = function () {
 
 		this.element = (0, _jquery2.default)(element);
 		this.reverse = this.element.attr('data-reverse') === 'true';
-		this.velocity = 2;
+		var mod = parseInt(this.element.attr('data-velocity-mod'), 10) || 1;
+		this.velocity = 0.2 * mod;
 		this.bgLeft = 0;
 		// this.y = 0; // 'current' y as far as setVelocity is concerned
 		// this.yd = 0; // 'destination' y
@@ -13443,7 +13444,7 @@ var Scroller = function () {
 			this.bgLeft = this.reverse ? this.bgLeft - this.velocity : this.bgLeft + this.velocity;
 			console.log(this.bgLeft);
 			this.element.css({
-				'background-position': this.bgLeft + 'px center'
+				'background-position': this.bgLeft + '% center'
 			});
 			return true;
 		}

@@ -9,6 +9,14 @@
 		background-size: calc(100% - 3rem);
 	}
 
+	section.purchase, section.logo {
+		height: 100vw;
+	}
+
+	.purchase__info {
+		padding: 3rem;
+	}
+
 	section.photo-strip {
 		background: black;
 		padding: 1.5rem .75rem;
