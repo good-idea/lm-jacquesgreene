@@ -6,7 +6,6 @@ import resolve from 'soundcloud-resolve-jsonp';
 const clientId = '20f6b95488a0ca8f2254e250e6b0b229';
 SC.initialize({ clientId });
 
-
 class Player {
 	constructor(element, publisher) {
 		this.play = this.play.bind(this);

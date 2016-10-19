@@ -70,9 +70,9 @@ gulp.task('css', function () {
 		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest('./public/css/'))
 	 	.pipe(filter("**/*.css"))
-		.pipe(notify({
-			message: 'Generated file: <%= file.relative %>',
-		})) // Output the file being created
+		// .pipe(notify({
+		// 	message: 'Generated file: <%= file.relative %>',
+		// })) // Output the file being created
 		.pipe(livereload())
 });
 
@@ -126,9 +126,9 @@ function makeBundle(bundler, entry, production) {
 		.pipe(sourcemaps.write('.')) // Set folder for sourcemaps to output to
 		.pipe(gulp.dest('./public/js/')) // Set the output folder
 		.pipe(filter("**/*.js"))
-		.pipe(notify({
-			message: 'Generated file: <%= file.relative %>',
-		})) // Output the file being created
+		// .pipe(notify({
+		// 	message: 'Generated file: <%= file.relative %>',
+		// })) // Output the file being created
 		.pipe(bundleTimer) // Output time timing of the file creation
 		// .pipe((production === true) ? gulpFunction(addCompiled) : gutil.noop())
 		.pipe(livereload()); // Reload the view in the browser

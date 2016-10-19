@@ -10,18 +10,19 @@ exports.Index = (req, res) => {
 		const site = response.data.doc;
 		if (!site) res.json({ error: `No site with the slug '${siteSlug}' was found` });
 		if (site.pages.length < 1) res.json({ error: 'There are no pages associated with the site' });
-		let homepage = site.pages.find((s) => s.slug === site.homepage);
+		let homepage = (req.query.homepage) ? req.query.homepage : site.pages.find((s) => s.slug === site.homepage);
 		if (!homepage) homepage = site.pages[0];
 
-		const template = homepage.template || 'home';
+		console.log(req.query.homepage, homepage);
+		const template = homepage.template || 'ferrari';
 		// const content = (homepage.content);
 		const content = parseContent(homepage.content);
 
-		if (req.params.param === 'content') {
+		if (req.query.content === 'true') {
 			return res.json(content);
 		}
 
-		res.render(`home/${template}`,
+		res.render(template,
 			{
 				meta: site.content.meta,
 				content,
@@ -47,7 +48,7 @@ function parseContent(input) {
 
 	for (const livedate of content.live.livedates) {
 		const date = new Date(Date.parse(livedate.date));
-		if (date < now) continue;         
+		if (date < now) continue;       
 		livedate.date = `${monthnames[date.getMonth()]} ${padLeft(date.getDate())}`;
 		livedates.push(livedate);
 	}

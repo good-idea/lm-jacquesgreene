@@ -3,11 +3,10 @@ import Scroller from './components/Scroller.js';
 import ScrollTo from './components/ScrollTo.js';
 import Player from './components/Player.js';
 import Mailer from './components/Mailer.js';
-import Warp from './components/Warp.js';
+// import Warp from './components/Warp.js';
 import publisher from './components/pubSub.js';
 import * as h from './helpers/helpers';
 
-///
 
 const live = !$('body').hasClass('placeholder')
 
