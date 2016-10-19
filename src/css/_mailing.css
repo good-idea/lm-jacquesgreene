@@ -16,7 +16,7 @@ img.eclair {
 	transition: .3s;
 	position: relative;
 	perspective: 20rem;
-	border: 1px solid black;
+	border: 1px solid;
 
 	form, input {
 		height: 100%;
@@ -34,7 +34,8 @@ img.eclair {
 		background-color: transparent;
 		padding: 1.8rem 0;
 		border: 0;
-		color: black;
+		color: inherit;
+		/* color: black; */
 		transition: .3s;
 
 		&:focus::placeholder, &:focus::-webkit-input-placeholder {
@@ -42,7 +43,8 @@ img.eclair {
 		}
 
 		&::placeholder, &::-webkit-input-placeholder {
-			color: black;
+			/* color: black; */
+			color: inherit;
 			font-weight: 800;
 			empty-cells: initial;
 		}

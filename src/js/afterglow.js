@@ -8,8 +8,6 @@ import publisher from './components/pubSub.js';
 import * as h from './helpers/helpers';
 
 
-const live = !$('body').hasClass('placeholder')
-
 const components = {};
 $('.bg-scroller').map((i, el) => {
 	const scroller = new Scroller(el, publisher);
@@ -18,13 +16,11 @@ $('.bg-scroller').map((i, el) => {
 });
 
 
-// $('.warp').map((i, el) => {
-// 	const warp = new Warp(el, publisher);
-// 	if (!components.warps) components.warps = [];
-// 	components.warps.push(warp);
-// });
-
-if (live) components.player = new Player($('section.player'), publisher);
+$('section.player').map((i, el) => {
+	const player = new Player(el, publisher);
+	if (!components.players) components.players = [];
+	components.players.push(player);
+});
 
 $('.signup').map((i, el) => {
 	const mailer = new Mailer(el, publisher);
@@ -32,15 +28,14 @@ $('.signup').map((i, el) => {
 	components.mailers.push(mailer);
 });
 
-if (live) {
-	$('.scrollTo').map((i, el) => {
-		const scrollTo = new ScrollTo(el, publisher);
-		scrollTo.autoCallback = components.player.play.bind(player);
-		scrollTo.setAuto();
-		if (!components.scrollTos) components.scrollTos = [];
-		components.scrollTos.push(scrollTo);
-	});
-}
+$('.scrollTo').map((i, el) => {
+	const scrollTo = new ScrollTo(el, publisher);
+	// scrollTo.autoCallback = components.player.play.bind(player);
+	scrollTo.setAuto();
+	if (!components.scrollTos) components.scrollTos = [];
+	components.scrollTos.push(scrollTo);
+});
+
 
 const header = {
 	init() {
@@ -66,7 +61,7 @@ const header = {
 			}, 1300);
 		});
 
-		if (live) this.calculate();
+		this.calculate();
 		// this.button.click(() => this.element.toggleClass('in-view').removeClass('in-view'));
 		this.element.mouseenter(() => {
 			this.notified = true;
@@ -74,14 +69,14 @@ const header = {
 		}).mouseleave(() => {
 			if (!this.mailer.hasClass('thinking')) {
 				setTimeout(() => this.element.removeClass('in-view'), 300);
-			} 
+			}
 		});
 
 		$(window).on('load', () => {
 			setTimeout(() => {
 				if (!this.notified) this.element.addClass('in-view');
 			}, 8000);
-		})
+		});
 	},
 
 	toggleScroll(disabled) {
@@ -94,12 +89,12 @@ const header = {
 	},
 
 	isInView(ypos) {
-		if (!this.emailSubscribed && !this.disabled) {		
+		if (!this.emailSubscribed && !this.disabled) {
 			if (this.isMobile) {
 				const currentY = ypos;
 				this.element.toggleClass('in-view', ypos < this.lastY);
 				this.lastY = currentY;
-			} else {		
+			} else {
 				if (!this.triggerY) return false;
 				if (ypos > this.triggerY && !this.notified) {
 					this.element.toggleClass('in-view', ypos > this.triggerY);
@@ -135,7 +130,6 @@ $(window).on('load', () => {
 	draw();
 
 	$('.full-height').css('height', window.innerHeight);
-
 });
 
 window.onbeforeunload = () => window.scrollTo(0, 0);

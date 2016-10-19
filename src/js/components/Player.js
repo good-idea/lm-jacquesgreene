@@ -14,8 +14,8 @@ class Player {
 		this.snap = this.snap.bind(this);
 		this.publisher = publisher;
 
-		this.element = element;
-		this.track = this.element.find('#track')[0];
+		this.element = $(element);
+		this.track = this.element.find('.track')[0];
 		this.playButton = this.element.find('.player__controls.play');
 		this.pauseButton = this.element.find('.player__controls.pause');
 		this.scrubber = this.element.find('.player__scrubber');
