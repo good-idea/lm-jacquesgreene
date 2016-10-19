@@ -70,6 +70,23 @@ section#playerContainer.full-height.player(
 	.player__pulse
 	.player__scrubber
 
+section#live.tour
+	ul.tourdates
+		each date in content.live.livedates
+			li.tourdate
+				a(href= date.url)
+					span.date #{ date.date }
+					span.place
+						span.venue #{ date.venue }
+						span.location #{ date.location }
+					span.ticket-link
+						| View Event
+
+
+
+
+
+
 section.jacques.full-height
 	div.screen
 	.section-background(
@@ -110,6 +127,6 @@ section.footer
 				a(target="_blank" href=item.link) #{item.copy}
 
 
-script(type="text/javascript" src="/js/main.js?v=1.1")
+script(type="text/javascript" src="/js/ferrari.js?v=1.1")
 
 
