@@ -25,32 +25,24 @@ header.ferrari
 		.signup__thank-you
 			h5 #{ content.mailer.headerThankyou }
 
-section.deny.full-height.scrollTo(
-	data-scrollTo="#playerContainer"
+section.afterglow.scrollTo(
+	data-scrollTo="#afterglowPlayer"
 	data-scrollTo-auto="7000"
 )
-	.screen
-	.section-background(
-		style="background-image:url(" + content.main.backgroundOne + ")"
-	)
-	.text-repeater.bg-scroller(data-reverse="true")
+	.grid
+		.grid__column
+			.grid__item.orange
+			.grid__item.arm
+		.grid__column
+			.grid__item.violet
+			.logotype-repeater.scroll(data-direction="right")
 
-section.photo-strip
-	.portrait
-		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
-	.portrait
-		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
-	.portrait
-		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
-	.portrait
-		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
-
-section#playerContainer.full-height.player(
-	data-track= content.player.streamUrl
+section#afterglowPlayer.full-height.player(
+	data-track= content.players.afterglowUrl
 )
 	.player__inner
 		.player__header
-			each item in content.player.header
+			each item in content.players.afterglowHeader
 				h4
 					a(target="_blank" href=item.link) #{ item.copy }
 
@@ -62,54 +54,71 @@ section#playerContainer.full-height.player(
 					rect(x='5', y='5', width='70', height='70')
 
 		.player__footer
-			each item in content.player.footer
+			each item in content.players.afterglowFooter
 				h4 #{ item.copy }
 
-	audio#track(src="" preload autobuffer)
+	audio.track(src="" preload autobuffer)
 	.screen
-	.player__pulse
 	.player__scrubber
 
-section.jacques.full-height
-	div.screen
-	.section-background(
-		style="background-image:url(" + content.main.backgroundTwo + ")"
-	)
-	.text-repeater.bg-scroller
-
-section.photo-strip.flip
-	.portrait
-		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
-	.portrait
-		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
-	.portrait
-		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
-	.portrait
-		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
-
-section.footer
-	.signup
-		h5.message
-		form.signup__form.cf(action='/mcsubscribe')
-			input.signup__input(type='text', name='email_address', placeholder=content.mailer.footerPlaceholder, spellcheck='false')
-			button.arrow(type='submit')
-				svg(xmlns='http://www.w3.org/2000/svg', width='30', height='15', viewbox='0 0 30 15')
-					g
-						line.cls-1(x1='1.65', y1='7.5', x2='28.35', y2='7.5')
-						polyline.cls-1(points='21.35 14.5 28.35 7.5 21.35 0.5')
-		.thinking__dots
-			.thinking__dot
-			.thinking__dot
-			.thinking__dot
-		.signup__thank-you
-			h5 #{content.mailer.footerThankyou}
-
-	.footer__socials
-		for item in content.mailer.footerLinks
-			h4
-				a(target="_blank" href=item.link) #{item.copy}
+section.purchase(style="background-image: url(" + content.purchase.background + ")")
+	.purchase__info
+		h4.purchase__copy !{ content.purchase.copy }
+		a.purchase__button(href= content.purchase.link target="_blank")
+			h4 #{ content.purchase.buttonCopy }
 
 
-script(type="text/javascript" src="/js/main.js?v=1.1")
+//- //- section.photo-strip
+//- //- 	.portrait
+//- //- 		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+//- //- 	.portrait
+//- //- 		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+//- //- 	.portrait
+//- //- 		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+//- //- 	.portrait
+//- //- 		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+
+
+//- //- section.jacques.full-height
+//- //- 	div.screen
+//- //- 	.section-background(
+//- //- 		style="background-image:url(" + content.main.backgroundTwo + ")"
+//- //- 	)
+//- //- 	.text-repeater.bg-scroller
+
+//- //- section.photo-strip.flip
+//- //- 	.portrait
+//- //- 		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+//- //- 	.portrait
+//- //- 		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+//- //- 	.portrait
+//- //- 		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+//- //- 	.portrait
+//- //- 		img(src= content.main.portrait, alt='Jacques Greene | photo by Mathieu Fortin')
+
+//- //- section.footer
+//- //- 	.signup
+//- //- 		h5.message
+//- //- 		form.signup__form.cf(action='/mcsubscribe')
+//- //- 			input.signup__input(type='text', name='email_address', placeholder=content.mailer.footerPlaceholder, spellcheck='false')
+//- //- 			button.arrow(type='submit')
+//- //- 				svg(xmlns='http://www.w3.org/2000/svg', width='30', height='15', viewbox='0 0 30 15')
+//- //- 					g
+//- //- 						line.cls-1(x1='1.65', y1='7.5', x2='28.35', y2='7.5')
+//- //- 						polyline.cls-1(points='21.35 14.5 28.35 7.5 21.35 0.5')
+//- //- 		.thinking__dots
+//- //- 			.thinking__dot
+//- //- 			.thinking__dot
+//- //- 			.thinking__dot
+//- //- 		.signup__thank-you
+//- //- 			h5 #{content.mailer.footerThankyou}
+
+//- //- 	.footer__socials
+//- //- 		for item in content.mailer.footerLinks
+//- //- 			h4
+//- //- 				a(target="_blank" href=item.link) #{item.copy}
+
+
+//- script(type="text/javascript" src="/js/afterglow.js?v=1.1")
 
 

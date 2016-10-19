@@ -10,10 +10,9 @@ exports.Index = (req, res) => {
 		const site = response.data.doc;
 		if (!site) res.json({ error: `No site with the slug '${siteSlug}' was found` });
 		if (site.pages.length < 1) res.json({ error: 'There are no pages associated with the site' });
-		let homepage = (req.query.homepage) ? req.query.homepage : site.pages.find((s) => s.slug === site.homepage);
+		let homepage = (req.query.homepage) ? site.pages.find((s) => s.slug === req.query.homepage) : site.pages.find((s) => s.slug === site.homepage);
 		if (!homepage) homepage = site.pages[0];
 
-		console.log(req.query.homepage, homepage);
 		const template = homepage.template || 'ferrari';
 		// const content = (homepage.content);
 		const content = parseContent(homepage.content);
@@ -55,6 +54,9 @@ function parseContent(input) {
 
 	// replace the original with the updated content
 	content.live.livedates = livedates;
+
+	content.purchase.copy = content.purchase.copy.replace(/\n/g, '<br />');
+	console.log(content.purchase.copy);
 
 	return content;
 }
