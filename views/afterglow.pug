@@ -24,6 +24,8 @@ header.ferrari
 			.thinking__dot
 		.signup__thank-you
 			h5 #{ content.mailer.headerThankyou }
+	.ex
+		img(src='/images/icons_ex.svg')
 
 section.afterglow.scrollTo(
 	data-scrollTo="#afterglowPlayer"
@@ -61,7 +63,10 @@ section#afterglowPlayer.full-height.player(
 	.screen
 	.player__scrubber
 
-section.purchase(style="background-image: url(" + content.purchase.background + ")")
+section.purchase
+	.packshots
+		.packshot.packshot--primary(style="background-image: url(" + content.purchase.background + ")")
+		.packshot.packshot--reverse(style="background-image: url(" + content.purchase.backgroundReverse + ")")
 	.purchase__info
 		h4.purchase__copy !{ content.purchase.copy }
 		a.purchase__button(href= content.purchase.link target="_blank")
@@ -71,7 +76,7 @@ section#live.tour
 	ul.tourdates
 		each date in content.live.livedates
 			li.tourdate
-				a(href= date.url)
+				a(href= date.url targt="_blank")
 					span.date #{ date.date }
 					span.place
 						span.venue #{ date.venue }
@@ -155,6 +160,9 @@ section.footer
 			h4
 				a(target="_blank" href=item.link) #{item.copy}
 
+	.logo
+		a(href="https://open.spotify.com/user/luckymerecords" target="_blank")
+			img.luckyme-logo.logo-black(src="/images/logo-eye.png" alt="LuckyMe Studio Logo")
 
 script(type="text/javascript" src="/js/afterglow.js?v=1.1")
 

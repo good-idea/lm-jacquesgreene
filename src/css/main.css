@@ -110,7 +110,7 @@ header {
 	text-align: center;
 	position: fixed;
 	padding: 3rem;
-	top: calc(-$header-height + 1rem);
+	top: 0;
 	left: 0;
 	width: 100%;
 	height: $header-height;
@@ -119,6 +119,7 @@ header {
 	z-index: 200;
 	transition: .3s;
 	overflow: hidden;
+	transform: translateY(calc(-100% + 1rem));
 
 	.header__socials { display: none; }
 
@@ -140,7 +141,20 @@ header {
 		z-index: 1;
 		cursor: pointer;
 	}
+
+	.signup, .ex { margin-top: 2rem; }
+	.ex { display: none; }
 }
+
+header.needs-ex {
+	height: calc($header-height + 6rem);
+
+	.ex {
+		display: block;
+		cursor: pointer;
+	}
+}
+
 
 .header__info {
 	display: flex;
@@ -156,8 +170,10 @@ header {
 	a:hover { color: white; }
 }
 
+
+
 header.in-view, header.open {
-	top: 0;
+	transform: none;
 
 	.signup, .header__info {
 		opacity: 1;
@@ -250,15 +266,39 @@ section.afterglow {
 //-------------------------------------------------- */
 
 section.purchase {
-	@mixin flex-center;
-	height: 62vw;
+	height: 43vw;
+	display: flex;
+}
+
+.packshots, .purchase__info {
+	position: relative;
+	flex-basis: 50%;
+}
+
+.packshots .packshot {
+	@mixin abs-full-size;
+	z-index: 5;
+	transition: .3s;
 	background-size: cover;
 	background-position: center;
 }
 
+.packshot--reverse {
+	z-index: 10;
+	opacity: 0;
+}
+
+.packshots:hover {
+	.packshot--reverse { opacity: 1; }
+}
+
 .purchase__info {
-	padding: 6rem;
-	background-color: $tan;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 3rem;
+	background-color: black;
+	color: white;
 	text-align: center;
 }
 
@@ -266,11 +306,12 @@ section.purchase {
 	display: inline-block;
 	margin-top: 3rem;
 	padding: 2rem 4rem;
-	border: 1px solid black;
+	border: 1px solid;
+	align-self: center;
 
 	&:hover {
-		background-color: black;
-		color: $tan;
+		background-color: white;
+		color: black;
 	}
 }
 

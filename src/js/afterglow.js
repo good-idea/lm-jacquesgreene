@@ -41,12 +41,14 @@ const header = {
 	init() {
 		this.element = $('header');
 		this.button = this.element.find('.header__button');
-		this.notified = false;
 		this.mailer = this.element.find('.signup');
+		this.ex = this.element.find('.ex')
 		this.isMobile = h.isTouchDevice();
 		this.lastY = $(window).scrollTop();
 		this.scrollDirectionBuffer = 15;
+		this.notified = false;
 		this.disabled = false;
+		this.stuck = true;
 
 		this.inView = this.isInView.bind(this);
 		this.calculate = this.calculate.bind(this);
@@ -67,14 +69,23 @@ const header = {
 			this.notified = true;
 			this.element.addClass('in-view');
 		}).mouseleave(() => {
-			if (!this.mailer.hasClass('thinking')) {
-				setTimeout(() => this.element.removeClass('in-view'), 300);
+			if (!this.stuck) {
+				if (!this.mailer.hasClass('thinking')) {
+					setTimeout(() => this.element.removeClass('in-view'), 300);
+				}
 			}
 		});
 
+		this.ex.on('click', () => {
+			this.stuck = false;
+			this.element.removeClass('in-view');
+			setTimeout(() => this.element.removeClass('needs-ex'), 300);
+		})
+
 		$(window).on('load', () => {
 			setTimeout(() => {
-				if (!this.notified) this.element.addClass('in-view');
+				this.stuck = true;
+				if (!this.notified) this.element.addClass('in-view needs-ex');
 			}, 8000);
 		});
 	},

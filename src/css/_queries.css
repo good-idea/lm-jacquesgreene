@@ -19,10 +19,19 @@
 
 	section.photo-strip {
 		background: black;
-		padding: 1.5rem .75rem;
 
-		.portrait { flex-basis: calc(33% - 1.5rem); }
+		.portrait { flex-basis: calc(100% / 3); }
 		.portrait:nth-of-type(3) { display: none; }
+	}
+
+	section.purchase {
+		height: auto;
+		flex-direction: column;
+	}
+
+
+	.packshots {
+		height: 100vw;
 	}
 
 	li.tourdate {

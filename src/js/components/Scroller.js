@@ -6,8 +6,9 @@ class Scroller {
 		this.element = $(element);
 		this.reverse = (this.element.attr('data-reverse') === 'true');
 		const mod = parseInt(this.element.attr('data-velocity-mod'), 10) || 1;
-		this.velocity = 0.2 * mod;
+		this.velocity = 0.5 * mod;
 		this.bgLeft = 0;
+		
 		// this.y = 0; // 'current' y as far as setVelocity is concerned
 		// this.yd = 0; // 'destination' y
 
