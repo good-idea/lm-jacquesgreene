@@ -58,7 +58,6 @@ function parseContent(input) {
 	content.live.livedates = livedates;
 
 	content.purchase.copy = content.purchase.copy.replace(/\n/g, '<br />');
-	console.log(content.purchase.copy);
 
 	return content;
 }

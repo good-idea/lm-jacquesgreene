@@ -140,6 +140,14 @@ $(window).on('load', () => {
 	}
 	draw();
 
+	let resizeTimer = null;
+	$(window).on('resize', (e) => {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(() => {
+			publisher.emit('Recalculate');
+		}, 250);
+	});
+
 	$('.full-height').css('height', window.innerHeight);
 });
 

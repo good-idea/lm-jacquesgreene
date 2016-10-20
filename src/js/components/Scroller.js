@@ -62,7 +62,6 @@ class Scroller {
 		if (!this.inView) return false;
 		// if (Math.floor(this.y) !== Math.floor(this.yd)) this.setVelocity();
 		this.bgLeft = (this.reverse) ? this.bgLeft - this.velocity : this.bgLeft + this.velocity;
-		console.log(this.bgLeft);
 		this.element.css({
 			'background-position': `${this.bgLeft}% center`,
 		});

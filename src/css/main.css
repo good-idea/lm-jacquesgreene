@@ -400,6 +400,11 @@ section.player {
 		display: block;
 	}
 
+	.screen.overlay {
+		z-index: 2;
+		mix-blend-mode: soft-light;
+	}
+
 	iframe {
 		display: none;
 		position: relative;
