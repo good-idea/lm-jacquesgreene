@@ -397,6 +397,7 @@ section.player {
 		z-index: -1;
 		background-image: url("/images/screen.png");
 		background-size: 1440px;
+		display: block;
 	}
 
 	iframe {
@@ -415,6 +416,11 @@ section.player {
 		iframe { display: initial; }
 	}
 }
+
+@media screen and (min-width: 1440px) {
+	section.player .screen { background-size: 100%; }
+}
+
 
 .player__inner {
 	height: 100%;
@@ -436,7 +442,7 @@ section.player {
 	z-index: 0;
 	width: 100%;
 	height: 100%;
-	background-color: $darkGrey;
+	background-color: $red;
 	cursor: grab;
 
 	&.dragging {

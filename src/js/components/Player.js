@@ -25,7 +25,7 @@ class Player {
 		this.debugTime = Date.now();
 
 		this.publisher.subscribe('FrameRequested', this.handleFrameRequest);
-		this.publisher.subscribe('WindowScrolled', this.snap);
+		// this.publisher.subscribe('WindowScrolled', this.snap);
 
 		this.playing = false;
 		this.scrubber.right = 100;
