@@ -205,6 +205,22 @@ header.in-view, header.open {
 	&.violet { background-image: url('/images/texture-violet.jpg'); }
 }
 
+@media screen and (max-width: 630px) {
+
+.grid__item {
+	&.arm { background-image: url('/images/texture-arm-small.jpg'); }
+	&.autumn { background-image: url('/images/texture-autumn-small.jpg'); }
+	&.black { background-image: url('/images/texture-black-small.jpg'); }
+	&.bodies { background-image: url('/images/texture-bodies-small.jpg'); }
+	&.logo { background-image: url('/images/texture-logo-small.jpg'); }
+	&.orange { background-image: url('/images/texture-orange-small.jpg'); }
+	&.orange-vertical { background-image: url('/images/texture-orange-vertical-small.jpg'); }
+	&.screen { background-image: url('/images/texture-screen-small.jpg'); background-size: 300px; }
+	&.violet { background-image: url('/images/texture-violet-small.jpg'); }
+}
+
+}
+
 .grid__row {
 	display: flex;
 	position: relative;
@@ -394,9 +410,10 @@ section.player {
 		pointer-events: none;
 		z-index: -1;
 		background-image: url("/images/screen.png");
-		background-size: 1440px;
+		background-size: 1600px;
 		display: block;
 	}
+
 
 	.screen.overlay {
 		z-index: 2;
