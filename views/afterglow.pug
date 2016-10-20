@@ -77,10 +77,10 @@ section#live.tour
 	ul.tourdates
 		each date in content.live.livedates
 			li.tourdate
-				a(href= date.url target="_blank")
+				a(href= date.ticket_url target="_blank")
 					span.date #{ date.date }
 					span.place
-						span.venue #{ date.venue }
+						span.venue #{ date.venue.name }
 						span.location #{ date.location }
 					span.ticket-link
 						| View Event

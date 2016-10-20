@@ -12,7 +12,7 @@ class ScrollTo {
 
 	setAuto() {
 		const delay = parseInt(this.element.attr('data-scrollTo-auto'), 10);
-		if (delay) {
+		if (delay && window.location.pathname == '/') {
 			this.publisher.emit('HeaderScrollDisabled', true);
 			setTimeout(() => this.publisher.emit('HeaderScrollDisabled', false), delay);
 

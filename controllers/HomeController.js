@@ -16,8 +16,17 @@ exports.resolveSoundcloud = (req, res) => {
 }
 
 exports.Index = (req, res) => {
-	axios.get(`http://localhost:3001/api/sites/${siteSlug}`).then((response) => {
-		const site = response.data.doc;
+
+	function getApiData() {
+		return axios.get(`http://localhost:3001/api/sites/${siteSlug}`);
+	}
+
+	function getBandsInTown() {
+		return axios.get('http://api.bandsintown.com/artists/JacquesGreene/events.json?api_version=2.0&app_id=luckyme');
+	}
+
+	axios.all([getApiData(), getBandsInTown()]).then(axios.spread((siteResponse, BITResponse) => {
+		const site = siteResponse.data.doc;
 		if (!site) res.json({ error: `No site with the slug '${siteSlug}' was found` });
 		if (site.pages.length < 1) res.json({ error: 'There are no pages associated with the site' });
 
@@ -26,8 +35,9 @@ exports.Index = (req, res) => {
 		if (!homepage) homepage = site.pages[0];
 
 		const template = homepage.template || 'afterglow';
-		// const content = (homepage.content);
-		const content = parseContent(homepage.content);
+		let content = (homepage.content);
+		content.live.livedates = BITResponse.data;
+		content = parseContent(homepage.content);
 
 		if (req.query.content === 'true') {
 			return res.json(content);
@@ -38,10 +48,37 @@ exports.Index = (req, res) => {
 				meta: site.content.meta,
 				content,
 			});
-	}).catch((error) => {
+	})).catch((error) => {
 		console.log(error);
 		res.json(error);
 	});
+
+	// axios.get(`http://localhost:3001/api/sites/${siteSlug}`).then((response) => {
+	// 	const site = response.data.doc;
+	// 	if (!site) res.json({ error: `No site with the slug '${siteSlug}' was found` });
+	// 	if (site.pages.length < 1) res.json({ error: 'There are no pages associated with the site' });
+
+	// 	// let homepage = (req.query.homepage) ? site.pages.find((s) => s.slug === req.query.homepage) : site.pages.find((s) => s.slug === site.homepage);
+	// 	let homepage = site.pages.find((s) => s.slug === 'afterglow');
+	// 	if (!homepage) homepage = site.pages[0];
+
+	// 	const template = homepage.template || 'afterglow';
+	// 	// const content = (homepage.content);
+	// 	const content = parseContent(homepage.content);
+
+	// 	if (req.query.content === 'true') {
+	// 		return res.json(content);
+	// 	}
+
+	// 	res.render(template,
+	// 		{
+	// 			meta: site.content.meta,
+	// 			content,
+	// 		});
+	// }).catch((error) => {
+	// 	console.log(error);
+	// 	res.json(error);
+	// });
 };
 
 function parseContent(input) {
@@ -57,12 +94,28 @@ function parseContent(input) {
 		return str;
 	}
 
+	// -- For BIT supplied livedates
+
 	for (const livedate of content.live.livedates) {
-		const date = new Date(Date.parse(livedate.date));
+		const date = new Date(Date.parse(livedate.datetime));
 		if (date < now) continue;      
 		livedate.date = `${monthnames[date.getMonth()]} ${padLeft(date.getDate())}`;
+		if (livedate.venue.country === 'United States' || livedate.venue.country === 'Canada') {
+			livedate.location = `${livedate.venue.city}, ${livedate.venue.region}`;
+		} else {
+			livedate.location = `${livedate.venue.city}, ${livedate.venue.country}`;
+		}
 		livedates.push(livedate);
 	}
+
+	// -- For manually supplied livedates
+	//
+	// for (const livedate of content.live.livedates) {
+	// 	const date = new Date(Date.parse(livedate.date));
+	// 	if (date < now) continue;      
+	// 	livedate.date = `${monthnames[date.getMonth()]} ${padLeft(date.getDate())}`;
+	// 	livedates.push(livedate);
+	// }
 
 	// replace the original with the updated content
 	content.live.livedates = livedates;

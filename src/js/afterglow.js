@@ -1,4 +1,6 @@
 import $ from 'jquery';
+import scrollTo from 'scroll-to';
+
 import Scroller from './components/Scroller.js';
 import ScrollTo from './components/ScrollTo.js';
 import Player from './components/Player.js';
@@ -80,7 +82,7 @@ const header = {
 			this.stuck = false;
 			this.element.removeClass('in-view');
 			setTimeout(() => this.element.removeClass('needs-ex'), 300);
-		})
+		});
 
 		$(window).on('load', () => {
 			setTimeout(() => {
@@ -121,9 +123,15 @@ const header = {
 
 header.init();
 
-// Manage event emitters
 
 $(window).on('load', () => {
+
+	if (location.pathname === '/live') {
+		const liveTop = $("#live").offset().top;
+		console.log('live', liveTop);
+		scrollTo(0, liveTop, { duration: 400 });
+	}
+
 	$(document).on('mousemove', (e) => publisher.emit('MouseMoved', e));
 	$(window).on('scroll', () => {
 		publisher.emit('WindowScrolled', $(window).scrollTop());
