@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import scrollTo from 'scroll-to';
-import SC from 'soundcloud';
+// import SC from 'soundcloud';
 import resolve from 'soundcloud-resolve-jsonp';
 
 const clientId = '20f6b95488a0ca8f2254e250e6b0b229';

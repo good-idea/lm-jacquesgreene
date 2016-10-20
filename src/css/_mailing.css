@@ -45,7 +45,8 @@ img.eclair {
 		&::placeholder, &::-webkit-input-placeholder {
 			/* color: black; */
 			color: inherit;
-			font-weight: 800;
+			font-family: $mono;
+			/* font-weight: 800; */
 			empty-cells: initial;
 		}
 	}
