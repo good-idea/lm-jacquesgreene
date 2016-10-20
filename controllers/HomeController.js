@@ -4,6 +4,16 @@
 const axios = require('axios');
 
 const siteSlug = 'jacquesgreene';
+const apiKey = 'Qye38eD6MD2BU844Ryw32fi8';
+
+exports.resolveSoundcloud = (req, res) => {
+	const url = req.params.url || req.query.url;
+	axios.get(`//localhost:3001/api/resources/resolveSoundcloud/${url}`, {
+		params: {
+			key: apiKey,
+		},
+	}).then((response) => res.json(response));
+}
 
 exports.Index = (req, res) => {
 	axios.get(`http://localhost:3001/api/sites/${siteSlug}`).then((response) => {
@@ -49,7 +59,7 @@ function parseContent(input) {
 
 	for (const livedate of content.live.livedates) {
 		const date = new Date(Date.parse(livedate.date));
-		if (date < now) continue;       
+		if (date < now) continue;      
 		livedate.date = `${monthnames[date.getMonth()]} ${padLeft(date.getDate())}`;
 		livedates.push(livedate);
 	}

@@ -63,13 +63,15 @@ class Player {
 				this.ifSCError();
 			} else {
 				const QorAmp = (response.stream_url.indexOf('?') > -1) ? '&' : '?';
-				const stream = `${response.stream_url}${QorAmp}client_id=${clientId}`;
+				let stream = `${response.stream_url}${QorAmp}client_id=${clientId}`;
+				stream = stream.replace(/https?:/, '');
 				this.track.setAttribute('src', stream);
 				this.element.addClass('ready');
 				this.bindButtons();
 			}
 		});
 	}
+
 
 	ifSCError() {
 		if (this.fellBack) return false;

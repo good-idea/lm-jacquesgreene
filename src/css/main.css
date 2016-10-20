@@ -170,8 +170,6 @@ header.needs-ex {
 	a:hover { color: white; }
 }
 
-
-
 header.in-view, header.open {
 	transform: none;
 
