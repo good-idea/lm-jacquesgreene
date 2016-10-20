@@ -18,7 +18,7 @@ class ScrollTo {
 
 			this.timer = setTimeout(() => {
 				this.go();
-				this.autoCallback();
+				// this.autoCallback();
 			}, delay);
 		}
 	}

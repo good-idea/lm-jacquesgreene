@@ -11,11 +11,13 @@ class Player {
 		this.play = this.play.bind(this);
 		this.pulseBackground = this.pulseBackground.bind(this);
 		this.handleFrameRequest = this.handleFrameRequest.bind(this);
+		this.play = this.play.bind(this);
+		this.pause = this.pause.bind(this);
 		this.snap = this.snap.bind(this);
 		this.publisher = publisher;
 
-		this.element = element;
-		this.track = this.element.find('#track')[0];
+		this.element = $(element);
+		this.track = this.element.find('.track')[0];
 		this.playButton = this.element.find('.player__controls.play');
 		this.pauseButton = this.element.find('.player__controls.pause');
 		this.scrubber = this.element.find('.player__scrubber');
@@ -25,7 +27,10 @@ class Player {
 		this.debugTime = Date.now();
 
 		this.publisher.subscribe('FrameRequested', this.handleFrameRequest);
-		this.publisher.subscribe('WindowScrolled', this.snap);
+		// this.publisher.subscribe('WindowScrolled', this.snap);
+		this.publisher.subscribe('PlayerPlayed', (playedId) => {
+			if (playedId !== this.id) this.pause();
+		});
 
 		this.playing = false;
 		this.scrubber.right = 100;
@@ -47,7 +52,7 @@ class Player {
 		this.track.crossOrigin = 'anonymous';
 
 		const trackUrl = $(this.element).attr('data-track');
-
+		this.id = trackUrl;
 		// this.track.addEventListener('error', (e) => {
 		// 	console.log(e, e.error);
 		// 	this.ifSCError();
@@ -86,6 +91,7 @@ class Player {
 	}
 
 	play() {
+		this.publisher.emit('PlayerPlayed', this.id);
 		this.track.play();
 		this.playing = true;
 		this.setClass();
