@@ -72,7 +72,6 @@ class Player {
 		});
 	}
 
-
 	ifSCError() {
 		if (this.fellBack) return false;
 		this.fellBack = true;
