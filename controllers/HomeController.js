@@ -4,8 +4,9 @@ const axios = require('axios');
 const parsers = require('./parsers');
 const helpers = require('./helpers');
 
-const siteSlug = 'jacquesgreene';
 const apiKey = 'Qye38eD6MD2BU844Ryw32fi8';
+
+
 
 exports.resolveSoundcloud = (req, res) => {
 	const host = (req.query.production === 'true') ? '205.186.136.28' : 'localhost';
@@ -17,26 +18,27 @@ exports.resolveSoundcloud = (req, res) => {
 	}).then(response => res.json(response));
 };
 
-exports.SongkickEmbed = (req, res) => res.render('songkick');
+exports.SongkickEmbed = (req, res) => {
+	const revision = helpers.getRevision();
+	helpers.getSite(req).then((response) => {
+		const site = response.data.doc;
+		const homepage = site.pages.find(s => s.slug === 'tour2017');
+		const content = Object.assign({}, homepage.content);
+		content.meta = parsers.combineMeta(site.content.meta, homepage.content.meta);
+		res.render('songkick', { content, revision });
+	});
+};
 
 exports.Index = (req, res) => {
 	const revision = helpers.getRevision();
-
-	function getApiData() {
-		const host = (req.query.production === 'true') ? '205.186.136.28' : 'localhost';
-		return axios.get(`http://${host}:3001/api/sites/${siteSlug}`);
-	}
-
-	function getBandsInTown() {
-		return axios.get('http://api.bandsintown.com/artists/JacquesGreene/events.json?api_version=2.0&app_id=luckyme');
-	}
-
-	axios.all([getApiData(), getBandsInTown()]).then(axios.spread((siteResponse, BITResponse) => {
+	const siteSlug = 'jacquesgreene';
+	axios.all([helpers.getSite(req), helpers.getBandsInTown()]).then(axios.spread((siteResponse, BITResponse) => {
 		const site = siteResponse.data.doc;
 		if (!site) res.json({ error: `No site with the slug '${siteSlug}' was found` });
 		if (site.pages.length < 1) res.json({ error: 'There are no pages associated with the site' });
 
 		let homepage = (req.query.homepage) ? site.pages.find(s => s.slug === req.query.homepage) : site.pages.find(s => s.slug === site.homepage);
+		console.log(req.query.homepage);
 		// let homepage = site.pages.find((s) => s.slug === 'afterglow');
 		if (!homepage) homepage = site.pages[0];
 

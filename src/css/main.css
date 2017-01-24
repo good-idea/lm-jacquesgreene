@@ -44,6 +44,10 @@ a { transition: .1s; }
 @import "afterglow";
 @import "realtime";
 
+body.songkickTour {
+	background-color: black;
+}
+
 
 /*
 // :::Shared
