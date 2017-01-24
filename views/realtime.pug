@@ -4,7 +4,9 @@ body!= content.meta.additional_head
 header.needs-ex
 	.header__info
 		h4 #{ content.mailer.headerTitle }
-	.signup
+	.signup(
+		data-download= content.mailer.headerDownload
+		)
 		h5.message
 		form.signup__form.cf(action='/mcsubscribe')
 			input.signup__input(
@@ -23,29 +25,30 @@ header.needs-ex
 			.thinking__dot
 			.thinking__dot
 		.signup__thank-you
-			h5 #{ content.mailer.headerThankyou }
+			a.downloadLink(href= content.mailer.headerDownload) 
+				h5 #{ content.mailer.headerThankyou }
 	.ex
 		img(src='/images/icons_ex.svg')
 
-section.afterglow.scrollTo(
-	data-scrollTo="#afterglowPlayer"
+section.top-image.scrollTo(
+	data-scrollTo="#realtime"
 	data-scrollTo-auto="7000"
 )
-	.grid
-		.grid__column
-			.grid__item.orange
-			.grid__item.arm
-		.grid__column
-			.grid__item.violet
-			.logotype-repeater.bg-scroller
+	img.full(
+		src="/images/realtime-top--large.jpg"
+		srcset="/images/realtime-top--small.jpg 400w, /images/realtime-top--medium.jpg 800w, /images/realtime-top--large.jpg 1440w"
+	)
 
-section#afterglowPlayer.full-height.player(
-	data-fallback= "289051750"
-	data-track= content.players.afterglowUrl
+section#realtime.full-height.player(
+	data-fallback= content.player.fallbackId
+	data-track= content.player.url
+	data-nothing="something"
 )
 	.player__inner
 		.player__header
-			each item in content.players.afterglowHeader
+
+			p!= content.player.soundcloud.fallbackId
+			each item in content.player.header
 				h4
 					a(target="_blank" href=item.link) #{ item.copy }
 
@@ -57,7 +60,7 @@ section#afterglowPlayer.full-height.player(
 					rect(x='5', y='5', width='70', height='70')
 
 		.player__footer
-			each item in content.players.afterglowFooter
+			each item in content.player.footer
 				h4 #{ item.copy }
 
 	audio.track(src="" preload autobuffer)
@@ -86,60 +89,18 @@ section#live.tour
 					span.ticket-link
 						| View Event
 
-section.deny.scrollTo(
-	data-scrollTo="#denyPlayer"
-)
-	.grid
-		.grid__column
-			.grid__item.orange-vertical
-			.logotype-repeater.bg-scroller(data-reverse="true" data-velocity-mod="2")
-		.grid__column
-			.grid__row
-				.grid__item.black
-				.grid__item.orange
-				.grid__item.screen
-				.grid__item.autumn
-			.grid__row
-				.grid__item.bodies
-
-section#denyPlayer.full-height.player(
-	data-fallback= "276705791"
-	data-track= content.players.denyUrl
-)
-	.player__inner
-		.player__header
-			each item in content.players.denyHeader
-				h4
-					a(target="_blank" href=item.link) #{ item.copy }
-
-		#player.player__buttons
-			.player__playpause
-				svg.player__controls.play(width='80', height='80', viewbox='0 0 80 80')
-					polygon(points='75 40 5 75 5 5 75 40 75 40')
-				svg.player__controls.pause(width='80', height='80', viewbox='0 0 80 80')
-					rect(x='5', y='5', width='70', height='70')
-
-		.player__footer
-			each item in content.players.denyFooter
-				h4 #{ item.copy }
-
-	audio.track(src="" preload autobuffer)
-	.screen
-	.screen.overlay
-	.player__scrubber
-
 section.logo
 	img.logotype(src="/images/jacques_logotype-broken.svg")
 
 section.photo-strip
 	.portrait
-		img(src='/images/portrait-blue.jpg', alt='Jacques Greene')
+		img(src='/images/portrait-red.jpg', alt='Jacques Greene, photo by Mathieu Fortin')
 	.portrait
-		img(src='/images/portrait-blue.jpg', alt='Jacques Greene')
+		img(src='/images/portrait-red.jpg', alt='Jacques Greene, photo by Mathieu Fortin')
 	.portrait
-		img(src='/images/portrait-blue.jpg', alt='Jacques Greene')
+		img(src='/images/portrait-red.jpg', alt='Jacques Greene, photo by Mathieu Fortin')
 	.portrait
-		img(src='/images/portrait-blue.jpg', alt='Jacques Greene')
+		img(src='/images/portrait-red.jpg', alt='Jacques Greene, photo by Mathieu Fortin')
 
 
 section.footer

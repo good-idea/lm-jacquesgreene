@@ -1,5 +1,8 @@
 import $ from 'jquery';
 import axios from 'axios';
+import Cookie from 'js-cookie';
+import download from 'downloadjs';
+
 
 class Mailer {
 	constructor(element, publisher) {
@@ -8,16 +11,21 @@ class Mailer {
 		this.form = this.element.find('form.signup__form');
 		this.emailInput = this.form.find('input.signup__input')[0];
 		this.message = this.element.find('.message');
+		this.subscribed = (Cookie.get('realtime-subscribed') === 'true');
+		const downloadUrl = this.element.attr('data-download') || '';
+		this.download = (downloadUrl.length > 0) ? downloadUrl : false;
 
 		this.valid = undefined;
-
 		this.publisher.subscribe('EmailSubscribed', () => this.element.addClass('thinking success'));
 
 		this.setBindings();
+		if (this.subscribed) {
+			this.element.addClass('success thinking');
+		}
 	}
 
 	setBindings() {
-		const email = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,})$/;
+		const email = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,})$/;
 
 		this.form.submit((e) => {
 			e.preventDefault();
@@ -56,12 +64,14 @@ class Mailer {
 			if (response.status === 200) {
 				this.element.addClass('success');
 				this.publisher.emit('EmailSubscribed');
+				Cookie.set('realtime-subscribed', 'true');
 			} else {
 				this.element.removeClass('thinking');
 				this.setMessage('Sorry, it looks like there was an error.<br>Try again or let us know at info@luckyme.net');
 			}
 		});
 	}
+
 }
 
 export default Mailer;

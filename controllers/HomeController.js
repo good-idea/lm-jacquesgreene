@@ -42,10 +42,9 @@ exports.Index = (req, res) => {
 
 		const template = homepage.template || 'afterglow';
 		let content = (homepage.content);
-		console.log(parsers);
-		console.log(template);
 		content.live.livedates = BITResponse.data;
 		content = parsers[template](homepage.content);
+		content.meta = parsers.combineMeta(site.content.meta, homepage.content.meta);
 
 		if (req.query.content === 'true') {
 			return res.json(content);
@@ -53,9 +52,8 @@ exports.Index = (req, res) => {
 
 		return res.render(template,
 			{
-				meta: site.content.meta,
 				content,
-				revision
+				revision,
 			});
 	})).catch((error) => {
 		console.log(error);

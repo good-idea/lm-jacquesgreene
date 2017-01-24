@@ -1,0 +1,86 @@
+.grid__item {
+	&.arm { background-image: url('/images/texture-arm.jpg'); }
+	&.autumn { background-image: url('/images/texture-autumn.jpg'); }
+	&.black { background-image: url('/images/texture-black.jpg'); }
+	&.bodies { background-image: url('/images/texture-bodies.jpg'); }
+	&.logo { background-image: url('/images/texture-logo.jpg'); }
+	&.orange { background-image: url('/images/texture-orange.jpg'); }
+	&.orange-vertical { background-image: url('/images/texture-orange-vertical.jpg'); }
+	&.screen { background-image: url('/images/texture-screen.jpg'); background-size: 592px; }
+	&.violet { background-image: url('/images/texture-violet.jpg'); }
+}
+
+@media screen and (max-width: 630px) {
+
+	.grid__item {
+		&.arm { background-image: url('/images/texture-arm-small.jpg'); }
+		&.autumn { background-image: url('/images/texture-autumn-small.jpg'); }
+		&.black { background-image: url('/images/texture-black-small.jpg'); }
+		&.bodies { background-image: url('/images/texture-bodies-small.jpg'); }
+		&.logo { background-image: url('/images/texture-logo-small.jpg'); }
+		&.orange { background-image: url('/images/texture-orange-small.jpg'); }
+		&.orange-vertical { background-image: url('/images/texture-orange-vertical-small.jpg'); }
+		&.screen { background-image: url('/images/texture-screen-small.jpg'); background-size: 300px; }
+		&.violet { background-image: url('/images/texture-violet-small.jpg'); }
+	}
+
+}
+
+
+/*
+// :::Afterglow
+//-------------------------------------------------- */
+
+section.afterglow {
+
+	height: 100vw;
+
+	.grid__column {
+		flex-direction: column;
+	}
+
+	.grid__item.orange {
+		flex-basis: 25%;
+	}
+
+	.grid__item.arm {
+		flex-basis: 75%;
+	}
+
+	.grid__item.violet {
+		flex-basis: 100%;
+	}
+
+	.logotype-repeater {
+		background-image: url('/images/afterglow_logotype-vertical.svg');
+	}
+}
+
+
+/*
+// :::Deny
+//-------------------------------------------------- */
+
+section.deny {
+
+	height: 100vw;
+
+	.grid__column:first-of-type {
+		flex-basis: 25%;
+	}
+
+	.grid__column:nth-of-type(2) {
+		flex-basis: 75%;
+	}
+
+	.grid__row {
+		flex-wrap: wrap;
+
+		.grid__item:nth-of-type(2n + 1) { flex-basis: calc(100% / 3); }
+		.grid__item:nth-of-type(2n) { flex-basis: calc((100% / 3) * 2); }
+	}
+
+	.logotype-repeater {
+		background-image: url('/images/deny_logotype-vertical.svg');
+	}
+}

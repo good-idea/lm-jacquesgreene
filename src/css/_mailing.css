@@ -115,7 +115,6 @@ button.arrow {
 }
 
 .signup.thinking {
-	pointer-events: none;
 
 	.signup__form, button.arrow {
 		@mixin invisible;
@@ -123,6 +122,12 @@ button.arrow {
 
 	.thinking__dots {
 		opacity: 1;
+	}
+
+	.downloadLink {
+		@mixin flex-center;
+		@mixin abs-full-size;
+		color: rgb(254, 83, 63);
 	}
 }
 
