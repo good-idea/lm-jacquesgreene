@@ -1,0 +1,171 @@
+include partials/head
+body!= content.meta.additional_head
+
+header.needs-ex
+	.header__info
+		h4 #{ content.mailer.headerTitle }
+	.signup
+		h5.message
+		form.signup__form.cf(action='/mcsubscribe')
+			input.signup__input(
+				type="text"
+				name="email_address"
+				placeholder= content.mailer.headerPlaceholder
+				spellcheck="false"
+			)
+			button.arrow(type="submit")
+				svg(xmlns='http://www.w3.org/2000/svg', width='30', height='15', viewbox='0 0 30 15')
+					g
+						line.cls-1(x1='1.65', y1='7.5', x2='28.35', y2='7.5')
+						polyline.cls-1(points='21.35 14.5 28.35 7.5 21.35 0.5')
+		.thinking__dots
+			.thinking__dot
+			.thinking__dot
+			.thinking__dot
+		.signup__thank-you
+			h5 #{ content.mailer.headerThankyou }
+	.ex
+		img(src='/images/icons_ex.svg')
+
+section.afterglow.scrollTo(
+	data-scrollTo="#afterglowPlayer"
+	data-scrollTo-auto="7000"
+)
+	.grid
+		.grid__column
+			.grid__item.orange
+			.grid__item.arm
+		.grid__column
+			.grid__item.violet
+			.logotype-repeater.bg-scroller
+
+section#afterglowPlayer.full-height.player(
+	data-fallback= "289051750"
+	data-track= content.players.afterglowUrl
+)
+	.player__inner
+		.player__header
+			each item in content.players.afterglowHeader
+				h4
+					a(target="_blank" href=item.link) #{ item.copy }
+
+		#player.player__buttons
+			.player__playpause
+				svg.player__controls.play(width='80', height='80', viewbox='0 0 80 80')
+					polygon(points='75 40 5 75 5 5 75 40 75 40')
+				svg.player__controls.pause(width='80', height='80', viewbox='0 0 80 80')
+					rect(x='5', y='5', width='70', height='70')
+
+		.player__footer
+			each item in content.players.afterglowFooter
+				h4 #{ item.copy }
+
+	audio.track(src="" preload autobuffer)
+	.screen
+	.screen.overlay
+	.player__scrubber
+
+section.purchase
+	.packshots
+		.packshot.packshot--primary(style="background-image: url(" + content.purchase.background + ")")
+		.packshot.packshot--reverse(style="background-image: url(" + content.purchase.backgroundReverse + ")")
+	.purchase__info
+		h4.purchase__copy !{ content.purchase.copy }
+		a.purchase__button(href= content.purchase.link target="_blank")
+			h4 #{ content.purchase.buttonCopy }
+
+section#live.tour
+	ul.tourdates
+		each date in content.live.livedates
+			li.tourdate
+				a(href= date.ticket_url target="_blank")
+					span.date #{ date.date }
+					span.place
+						span.venue #{ date.venue.name }
+						span.location #{ date.location }
+					span.ticket-link
+						| View Event
+
+section.deny.scrollTo(
+	data-scrollTo="#denyPlayer"
+)
+	.grid
+		.grid__column
+			.grid__item.orange-vertical
+			.logotype-repeater.bg-scroller(data-reverse="true" data-velocity-mod="2")
+		.grid__column
+			.grid__row
+				.grid__item.black
+				.grid__item.orange
+				.grid__item.screen
+				.grid__item.autumn
+			.grid__row
+				.grid__item.bodies
+
+section#denyPlayer.full-height.player(
+	data-fallback= "276705791"
+	data-track= content.players.denyUrl
+)
+	.player__inner
+		.player__header
+			each item in content.players.denyHeader
+				h4
+					a(target="_blank" href=item.link) #{ item.copy }
+
+		#player.player__buttons
+			.player__playpause
+				svg.player__controls.play(width='80', height='80', viewbox='0 0 80 80')
+					polygon(points='75 40 5 75 5 5 75 40 75 40')
+				svg.player__controls.pause(width='80', height='80', viewbox='0 0 80 80')
+					rect(x='5', y='5', width='70', height='70')
+
+		.player__footer
+			each item in content.players.denyFooter
+				h4 #{ item.copy }
+
+	audio.track(src="" preload autobuffer)
+	.screen
+	.screen.overlay
+	.player__scrubber
+
+section.logo
+	img.logotype(src="/images/jacques_logotype-broken.svg")
+
+section.photo-strip
+	.portrait
+		img(src='/images/portrait-blue.jpg', alt='Jacques Greene')
+	.portrait
+		img(src='/images/portrait-blue.jpg', alt='Jacques Greene')
+	.portrait
+		img(src='/images/portrait-blue.jpg', alt='Jacques Greene')
+	.portrait
+		img(src='/images/portrait-blue.jpg', alt='Jacques Greene')
+
+
+section.footer
+	.signup
+		h5.message
+		form.signup__form.cf(action='/mcsubscribe')
+			input.signup__input(type='text', name='email_address', placeholder=content.mailer.footerPlaceholder, spellcheck='false')
+			button.arrow(type='submit')
+				svg(xmlns='http://www.w3.org/2000/svg', width='30', height='15', viewbox='0 0 30 15')
+					g
+						line.cls-1(x1='1.65', y1='7.5', x2='28.35', y2='7.5')
+						polyline.cls-1(points='21.35 14.5 28.35 7.5 21.35 0.5')
+		.thinking__dots
+			.thinking__dot
+			.thinking__dot
+			.thinking__dot
+		.signup__thank-you
+			h5 #{content.mailer.footerThankyou}
+
+	.footer__socials
+		for item in content.mailer.footerLinks
+			h4
+				a(target="_blank" href=item.link) #{item.copy}
+
+	.logo
+		a(href="https://open.spotify.com/user/luckymerecords" target="_blank")
+			img.luckyme-logo.logo-black(src="/images/logo-eye.png" alt="LuckyMe Studio Logo")
+
+script(type="text/javascript" src="/js/realtime.js?v="+revision.short)
