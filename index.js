@@ -17,7 +17,6 @@ const HomeController = require('./controllers/HomeController');
 const UtilitiesController = require('./controllers/UtilitiesController');
 
 app.post('/mcsubscribe', UtilitiesController.MCSubscribe);
-app.get('/redistest', HomeController.redisTest);
 app.get('/tour2017', HomeController.SongkickEmbed);
 app.get('/:param?', HomeController.Index);
 

@@ -28,26 +28,10 @@ exports.SongkickEmbed = (req, res) => {
 	});
 };
 
-exports.redisTest = (req, res) => {
-	console.log(req.query);
-	const revision = helpers.getRevision();
-	const siteSlug = 'jacquesgreene';
-	axios.all([helpers.getSite(req), helpers.getBandsInTownWithCache()]).then(axios.spread((siteResponse, BITResponse) => {
-		const content = {};
-		content.siteContent = siteResponse.data.doc;
-		content.bitContent = BITResponse;
-		return res.json(content);
-	})).catch((error) => {
-		console.log(error);
-	});
-};
-
 exports.Index = (req, res) => {
-	console.log("here?");
 	const revision = helpers.getRevision();
 	const siteSlug = 'jacquesgreene';
-	axios.all([helpers.getSite(req), helpers.getBandsInTown()]).then(axios.spread((siteResponse, BITResponse) => {
-		const site = siteResponse.data.doc;
+	axios.all([helpers.getSite(req), helpers.getBandsInTown()]).then(axios.spread((site, BITResponse) => {
 		if (!site) res.json({ error: `No site with the slug '${siteSlug}' was found` });
 		if (site.pages.length < 1) res.json({ error: 'There are no pages associated with the site' });
 
@@ -57,7 +41,7 @@ exports.Index = (req, res) => {
 
 		const template = homepage.template || 'afterglow';
 		let content = (homepage.content);
-		content.live.livedates = BITResponse.data;
+		content.live.livedates = BITResponse;
 		// return res.json(BITResponse);
 		// return res.json(BITResponse);
 		content = parsers[template](homepage.content);

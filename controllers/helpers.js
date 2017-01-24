@@ -35,27 +35,16 @@ exports.getRevision = function getRevision() {
 
 
 exports.getSite = function getApiData(req, siteSlug = 'jacquesgreene') {
-	console.log(req.query);
-	const host = (req.query.production === 'true') ? '205.186.136.28' : 'localhost';
-	console.log(host);
-	return axios.get(`http://${host}:3001/api/sites/${siteSlug}`);
-};
-
-exports.getBandsInTownWithCache = function getBandsInTownWithCache() {
 	const deferred = Q.defer();
-
-	client.get('bandsintown', (err, cached) => {
+	client.get('sitedata', (err, cached) => {
 		if (cached) {
-			console.log('Cached Result:');
-			console.log(cached.substr(0, 25));
 			deferred.resolve(JSON.parse(cached));
 		} else {
-			axios.get('http://api.bandsintown.com/artists/JacquesGreene/events.json?api_version=2.0&app_id=luckyme').then((response) => {
-				console.log('Fresh Response:');
-				const dates = response.data;
-				console.log(JSON.stringify(dates).substr(0, 25));
-				client.setex('bandsintown', 10, JSON.stringify(dates));
-				deferred.resolve(dates);
+			const host = (req.query.production === 'true') ? '205.186.136.28' : 'localhost';
+			axios.get(`http://${host}:3001/api/sites/${siteSlug}`).then((response) => {
+				const site = response.data.doc;
+				client.setex('sitedata', 60, JSON.stringify(site));
+				deferred.resolve(site);
 			});
 		}
 	});
@@ -63,5 +52,17 @@ exports.getBandsInTownWithCache = function getBandsInTownWithCache() {
 };
 
 exports.getBandsInTown = function getBandsInTown() {
-	return axios.get('http://api.bandsintown.com/artists/JacquesGreene/events.json?api_version=2.0&app_id=luckyme');
+	const deferred = Q.defer();
+	client.get('bandsintown', (err, cached) => {
+		if (cached) {
+			deferred.resolve(JSON.parse(cached));
+		} else {
+			axios.get('http://api.bandsintown.com/artists/JacquesGreene/events.json?api_version=2.0&app_id=luckyme').then((response) => {
+				const dates = response.data;
+				client.setex('bandsintown', 60, JSON.stringify(dates));
+				deferred.resolve(dates);
+			});
+		}
+	});
+	return deferred.promise;
 };
