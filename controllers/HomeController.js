@@ -7,7 +7,6 @@ const helpers = require('./helpers');
 const apiKey = 'Qye38eD6MD2BU844Ryw32fi8';
 
 
-
 exports.resolveSoundcloud = (req, res) => {
 	const host = (req.query.production === 'true') ? '205.186.136.28' : 'localhost';
 	const url = req.params.url || req.query.url;
@@ -29,7 +28,22 @@ exports.SongkickEmbed = (req, res) => {
 	});
 };
 
+exports.redisTest = (req, res) => {
+	console.log(req.query);
+	const revision = helpers.getRevision();
+	const siteSlug = 'jacquesgreene';
+	axios.all([helpers.getSite(req), helpers.getBandsInTownWithCache()]).then(axios.spread((siteResponse, BITResponse) => {
+		const content = {};
+		content.siteContent = siteResponse.data.doc;
+		content.bitContent = BITResponse;
+		return res.json(content);
+	})).catch((error) => {
+		console.log(error);
+	});
+};
+
 exports.Index = (req, res) => {
+	console.log("here?");
 	const revision = helpers.getRevision();
 	const siteSlug = 'jacquesgreene';
 	axios.all([helpers.getSite(req), helpers.getBandsInTown()]).then(axios.spread((siteResponse, BITResponse) => {
@@ -38,13 +52,14 @@ exports.Index = (req, res) => {
 		if (site.pages.length < 1) res.json({ error: 'There are no pages associated with the site' });
 
 		let homepage = (req.query.homepage) ? site.pages.find(s => s.slug === req.query.homepage) : site.pages.find(s => s.slug === site.homepage);
-		console.log(req.query.homepage);
 		// let homepage = site.pages.find((s) => s.slug === 'afterglow');
 		if (!homepage) homepage = site.pages[0];
 
 		const template = homepage.template || 'afterglow';
 		let content = (homepage.content);
 		content.live.livedates = BITResponse.data;
+		// return res.json(BITResponse);
+		// return res.json(BITResponse);
 		content = parsers[template](homepage.content);
 		content.meta = parsers.combineMeta(site.content.meta, homepage.content.meta);
 
