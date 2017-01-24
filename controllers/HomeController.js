@@ -7,18 +7,23 @@ const siteSlug = 'jacquesgreene';
 const apiKey = 'Qye38eD6MD2BU844Ryw32fi8';
 
 exports.resolveSoundcloud = (req, res) => {
+	const host = (req.query.production === 'true') ? '205.186.136.28' : 'localhost';
 	const url = req.params.url || req.query.url;
-	axios.get(`//localhost:3001/api/resources/resolveSoundcloud/${url}`, {
+	axios.get(`//${host}:3001/api/resources/resolveSoundcloud/${url}`, {
 		params: {
 			key: apiKey,
 		},
-	}).then((response) => res.json(response));
-}
+	}).then(response => res.json(response));
+};
+
+exports.SongkickEmbed = (req, res) => {
+	return res.render('songkick')
+};
 
 exports.Index = (req, res) => {
-
 	function getApiData() {
-		return axios.get(`http://localhost:3001/api/sites/${siteSlug}`);
+		const host = (req.query.production === 'true') ? '205.186.136.28' : 'localhost';
+		return axios.get(`http://${host}:3001/api/sites/${siteSlug}`);
 	}
 
 	function getBandsInTown() {
@@ -43,7 +48,7 @@ exports.Index = (req, res) => {
 			return res.json(content);
 		}
 
-		res.render(template,
+		return res.render(template,
 			{
 				meta: site.content.meta,
 				content,
@@ -98,7 +103,7 @@ function parseContent(input) {
 
 	for (const livedate of content.live.livedates) {
 		const date = new Date(Date.parse(livedate.datetime));
-		if (date < now) continue;      
+		if (date < now) continue;
 		livedate.date = `${monthnames[date.getMonth()]} ${padLeft(date.getDate())}`;
 		if (livedate.venue.country === 'United States' || livedate.venue.country === 'Canada') {
 			livedate.location = `${livedate.venue.city}, ${livedate.venue.region}`;
@@ -112,7 +117,7 @@ function parseContent(input) {
 	//
 	// for (const livedate of content.live.livedates) {
 	// 	const date = new Date(Date.parse(livedate.date));
-	// 	if (date < now) continue;      
+	// 	if (date < now) continue;
 	// 	livedate.date = `${monthnames[date.getMonth()]} ${padLeft(date.getDate())}`;
 	// 	livedates.push(livedate);
 	// }

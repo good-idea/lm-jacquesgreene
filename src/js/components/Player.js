@@ -18,11 +18,15 @@ class Player {
 
 		this.element = $(element);
 		this.track = this.element.find('.track')[0];
+		const trackUrl = $(this.element).attr('data-track');
+		this.id = trackUrl;
+		this.fallbackId = $(this.element).attr('data-fallback');
 		this.playButton = this.element.find('.player__controls.play');
 		this.pauseButton = this.element.find('.player__controls.pause');
 		this.scrubber = this.element.find('.player__scrubber');
 		// this.background = this.element.find('.player__pulse');
 		this.background = this.pauseButton;
+
 
 		this.debugTime = Date.now();
 
@@ -51,13 +55,6 @@ class Player {
 		this.volumeTracker = [1176, 2512, 2739, 2873, 3505, 3626, 3686, 3689, 3689, 3756, 3791, 4843, 5450, 5585, 5711, 0, 688, 2394];
 		this.track.crossOrigin = 'anonymous';
 
-		const trackUrl = $(this.element).attr('data-track');
-		this.id = trackUrl;
-		// this.track.addEventListener('error', (e) => {
-		// 	console.log(e, e.error);
-		// 	this.ifSCError();
-		// });
-
 		resolve({ url: trackUrl, client_id: clientId }, (error, response) => {
 			if (error) {
 				this.ifSCError();
@@ -76,7 +73,7 @@ class Player {
 		if (this.fellBack) return false;
 		this.fellBack = true;
 		const fallBack = $('<iframe/>');
-		fallBack.attr('src', 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/276705791&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true')
+		fallBack.attr('src', `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${this.fallbackId}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true`)
 			.attr('scrolling', 'no')
 			.attr('frameborder', 'no');
 		this.element.addClass('fallback')
@@ -87,8 +84,8 @@ class Player {
 	bindButtons() {
 		this.playButton.click(() => this.play());
 		this.pauseButton.click(() => this.pause());
-		this.scrubber.mousedown((e) => this.moveScrubber(e));
-		$(document).mouseup((e) => this.setNewPosition(e));
+		this.scrubber.mousedown(e => this.moveScrubber(e));
+		$(document).mouseup(e => this.setNewPosition(e));
 	}
 
 	play() {
@@ -134,11 +131,10 @@ class Player {
 		return true;
 	}
 
-
 	sampleAudioStream() {
 		this.analyser.getByteFrequencyData(this.streamData);
 		let total = 0;
-		for (let i = 0; i < 45; i++) {
+		for (let i = 0; i < 45; i += 1) {
 			total += this.streamData[i];
 		}
 		this.volume = total;
