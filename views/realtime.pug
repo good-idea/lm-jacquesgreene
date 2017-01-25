@@ -5,6 +5,7 @@ header.needs-ex
 	.header__info
 		h4 #{ content.mailer.headerTitle }
 	.signup(
+		data-cookiecheck= "true"
 		data-download= content.mailer.headerDownload
 		)
 		h5.message
@@ -25,7 +26,7 @@ header.needs-ex
 			.thinking__dot
 			.thinking__dot
 		.signup__thank-you
-			a.downloadLink(href= content.mailer.headerDownload) 
+			a.downloadLink(href= content.mailer.headerDownload)
 				h5 #{ content.mailer.headerThankyou }
 	.ex
 		img(src='/images/icons_ex.svg')
@@ -35,8 +36,8 @@ section.top-image.scrollTo(
 	data-scrollTo-auto="7000"
 )
 	img.full(
-		src="/images/realtime-top--large.jpg"
-		srcset="/images/realtime-top--small.jpg 400w, /images/realtime-top--medium.jpg 800w, /images/realtime-top--large.jpg 1440w"
+		src="/images/realtime-banner--large.jpg"
+		srcset="/images/realtime-banner--small.jpg 400w, /images/realtime-banner--medium.jpg 800w, /images/realtime-banner--large.jpg 1440w"
 	)
 
 section#realtime.full-height.player(
@@ -88,6 +89,15 @@ section#live.tour
 						span.location #{ date.location }
 					span.ticket-link
 						| View Event
+
+section.top-image.scrollTo(
+	data-scrollTo="#realtime"
+	data-scrollTo-auto="7000"
+)
+	img.full(
+		src="/images/realtime-top--large.jpg"
+		srcset="/images/realtime-top--small.jpg 400w, /images/realtime-top--medium.jpg 800w, /images/realtime-top--large.jpg 1440w"
+	)
 
 section.logo
 	img.logotype(src="/images/jacques_logotype-broken.svg")

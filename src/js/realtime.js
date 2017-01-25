@@ -70,11 +70,7 @@ const header = {
 			this.notified = true;
 			this.element.addClass('in-view');
 		}).mouseleave(() => {
-			if (!this.stuck) {
-				if (!this.mailer.hasClass('thinking')) {
-					setTimeout(() => this.element.removeClass('in-view'), 300);
-				}
-			}
+			setTimeout(() => this.element.removeClass('in-view'), 900);
 		});
 
 		this.ex.on('click', () => {

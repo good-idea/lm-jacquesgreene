@@ -127,7 +127,8 @@ button.arrow {
 	.downloadLink {
 		@mixin flex-center;
 		@mixin abs-full-size;
-		color: rgb(254, 83, 63);
+		color: black;
+		background-color: white;
 	}
 }
 

@@ -14,12 +14,13 @@ class Mailer {
 		this.subscribed = (Cookie.get('realtime-subscribed') === 'true');
 		const downloadUrl = this.element.attr('data-download') || '';
 		this.download = (downloadUrl.length > 0) ? downloadUrl : false;
+		this.cookieCheck = (this.element.attr('data-cookiecheck') === 'true');
 
 		this.valid = undefined;
 		this.publisher.subscribe('EmailSubscribed', () => this.element.addClass('thinking success'));
 
 		this.setBindings();
-		if (this.subscribed) {
+		if (this.subscribed && this.cookieCheck) {
 			this.element.addClass('success thinking');
 		}
 	}
@@ -69,6 +70,10 @@ class Mailer {
 				this.element.removeClass('thinking');
 				this.setMessage('Sorry, it looks like there was an error.<br>Try again or let us know at info@luckyme.net');
 			}
+		}).catch((error) => {
+			console.log(error);
+			this.element.removeClass('thinking');
+			this.setMessage('Sorry, it looks like there was an error.<br>Try again or let us know at info@luckyme.net');
 		});
 	}
 

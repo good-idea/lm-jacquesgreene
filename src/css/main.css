@@ -133,13 +133,18 @@ header {
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: $header-height;
 	background-color: black;
 	color: white;
 	z-index: 200;
 	transition: .3s;
 	overflow: hidden;
 	transform: translateY(calc(-100% + 1rem));
+	height: calc($header-height + 6rem);
+
+	.ex {
+		display: block;
+		cursor: pointer;
+	}
 
 	.header__socials { display: none; }
 
@@ -163,16 +168,6 @@ header {
 	}
 
 	.signup, .ex { margin-top: 2rem; }
-	.ex { display: none; }
-}
-
-header.needs-ex {
-	height: calc($header-height + 6rem);
-
-	.ex {
-		display: block;
-		cursor: pointer;
-	}
 }
 
 
@@ -285,7 +280,8 @@ section.purchase {
 .purchase__button {
 	display: inline-block;
 	margin-top: 3rem;
-	padding: 2rem 4rem;
+	padding: 1.8rem 1rem;
+	min-width: 11rem;
 	border: 1px solid;
 	align-self: center;
 
@@ -322,10 +318,12 @@ section.photo-strip {
 	background: black;
 	display: flex;
 	justify-content: space-around;
+	padding: 0 1.5rem;
 
 	.portrait {
 		flex-basis: 25%;
 		min-width: 0px;
+		padding: 3rem 1.5rem;
 	}
 
 	img { display: block; }
