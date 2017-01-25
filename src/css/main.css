@@ -48,7 +48,6 @@ body.songkickTour {
 	background-color: black;
 }
 
-
 /*
 // :::Shared
 //-------------------------------------------------- */
@@ -67,6 +66,10 @@ section {
 
 	& > img {
 		display: block;
+	}
+
+	img.full {
+		min-width: 100%;
 	}
 }
 
