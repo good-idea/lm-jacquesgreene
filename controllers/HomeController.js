@@ -20,8 +20,6 @@ exports.resolveSoundcloud = (req, res) => {
 exports.SongkickEmbed = (req, res) => {
 	const revision = helpers.getRevision();
 	helpers.getSite(req).then((response) => {
-		console.log('made it!!');
-		console.log('.. ok...')
 		const site = response;
 		const homepage = site.pages.find(s => s.slug === 'tour2017');
 		const content = Object.assign({}, homepage.content);
