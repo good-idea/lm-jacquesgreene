@@ -41,7 +41,7 @@ a { transition: .1s; }
 // :::By Template
 //-------------------------------------------------- */
 
-@import "afterglow";
+/*@import "afterglow";*/
 @import "realtime";
 
 body.songkickTour {
@@ -145,6 +145,7 @@ header {
 	height: calc($header-height + 6rem);
 
 	.ex {
+		opacity: 0;
 		display: block;
 		cursor: pointer;
 	}
@@ -194,6 +195,10 @@ header.in-view, header.open {
 	.signup, .header__info {
 		opacity: 1;
 		transform: none;
+	}
+
+	.ex {
+		opacity: 1;
 	}
 }
 
