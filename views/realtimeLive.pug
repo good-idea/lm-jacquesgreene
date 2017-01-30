@@ -35,7 +35,7 @@ if (content.impression.select !== 'disabled')
 	section.impression.full-height
 		if content.impression.select === 'youtube'
 			.letterbox
-				.r56.player
+				.r56.player.zz(data-state="buffering")
 					.embed-container
 						.control.control--initial-play(data-control="initial-play")
 						.embed.build-media(data-resource!= content.impression.youtube)

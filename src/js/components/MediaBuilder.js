@@ -118,7 +118,6 @@ function buildMedia(inputElement, publisher) {
 		let newVolume = 1 - ((input - 0.5) * 2);
 		newVolume = Math.max(newVolume, 0);
 		newVolume = Math.min(newVolume, 1);
-		console.log(newVolume);
 		// const newVolume = Math.min((input  0.5), 0) * 2;
 		// console.log(newVolume);
 		player.setVolume(newVolume * 100);

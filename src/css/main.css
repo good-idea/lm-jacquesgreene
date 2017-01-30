@@ -250,6 +250,14 @@ header.in-view, header.open {
 	display: none;
 }
 
+.player {
+	transition: 0.6s;
+}
+
+.player[data-state="buffering"] {
+	opacity: 0;
+}
+
 .player[data-state="playing"] {
 	.control--pause {
 		display: inline-block;
