@@ -34,21 +34,17 @@ exports.Index = (req, res) => {
 	axios.all([helpers.getSite(req), helpers.getBandsInTown()]).then(axios.spread((site, BITResponse) => {
 		if (!site) res.json({ error: `No site with the slug '${siteSlug}' was found` });
 		if (site.pages.length < 1) res.json({ error: 'There are no pages associated with the site' });
-
 		let homepage = (req.query.homepage) ? site.pages.find(s => s.slug === req.query.homepage) : site.pages.find(s => s.slug === site.homepage);
-		// let homepage = site.pages.find((s) => s.slug === 'afterglow');
 		if (!homepage) homepage = site.pages[0];
 
 		const template = homepage.template || 'afterglow';
 		let content = (homepage.content);
 		content.live.livedates = BITResponse;
-		// return res.json(BITResponse);
-		// return res.json(BITResponse);
 		content = parsers[template](homepage.content);
 		content.meta = parsers.combineMeta(site.content.meta, homepage.content.meta);
 
 		if (req.query.content === 'true') {
-			return res.json(content);
+			res.json(content);
 		}
 
 		return res.render(template,

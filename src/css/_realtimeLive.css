@@ -1,0 +1,14 @@
+section.impression {
+  background: black;
+}
+
+section.rt-repeater {
+  background-color: $red;
+  padding: 0 2rem;
+
+  .text-repeater {
+    height: 100%;
+    background-size: contain;
+		background-image: url("/images/svgs_realtime.svg");
+  }
+}

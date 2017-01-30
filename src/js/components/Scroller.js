@@ -4,11 +4,12 @@ import $ from 'jquery';
 class Scroller {
 	constructor(element, publisher) {
 		this.element = $(element);
+		this.vertical = (this.element.attr('data-direction') === 'vertical');
 		this.reverse = (this.element.attr('data-reverse') === 'true');
 		const mod = parseInt(this.element.attr('data-velocity-mod'), 10) || 1;
 		this.velocity = 0.25 * mod;
-		this.bgLeft = 0;
-		
+		this.bgPos = 0;
+
 		// this.y = 0; // 'current' y as far as setVelocity is concerned
 		// this.yd = 0; // 'destination' y
 
@@ -38,32 +39,13 @@ class Scroller {
 		return this.inView;
 	}
 
-	// delta(a, b) {
-	// 	const factor = 0.1;
-	// 	return (factor * (b - a)) + a;
-	// }
-
-	// handleMouseMove(e) {
-	// 	this.yd = e.clientY;
-	// }
-
-	// setVelocity(destination = this.yd) {
-	// 	if (!this.inView) return false;
-	// 	const y = this.delta(this.y, destination);
-	// 	const base = 0.2;
-	// 	const mod = 1.8;
-	// 	const ypos = (this.reverse) ? (y / (this.windowHeight)) : (this.windowHeight - y) / this.windowHeight;
-	// 	this.velocity = (ypos * mod) + base;
-	// 	this.y = Math.floor(y);
-	// 	return true;
-	// }
-
 	setBackgroundPosition() {
 		if (!this.inView) return false;
 		// if (Math.floor(this.y) !== Math.floor(this.yd)) this.setVelocity();
-		this.bgLeft = (this.reverse) ? this.bgLeft - this.velocity : this.bgLeft + this.velocity;
+		this.bgPos = (this.reverse) ? this.bgPos - this.velocity : this.bgPos + this.velocity;
+		const newPos = (this.vertical) ? `center ${this.bgPos}%` : `${this.bgPos}% center`;
 		this.element.css({
-			'background-position': `${this.bgLeft}% center`,
+			'background-position': newPos,
 		});
 		return true;
 	}

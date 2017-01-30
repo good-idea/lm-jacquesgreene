@@ -1,7 +1,6 @@
 @import "reset";
 @import "mixins";
 
-
 /*
 // :::Type
 // ::: "goudy-old-style"
@@ -38,23 +37,13 @@ a { transition: .1s; }
 
 
 /*
-// :::By Template
-//-------------------------------------------------- */
-
-/*@import "afterglow";*/
-@import "realtime";
-
-body.songkickTour {
-	background-color: black;
-}
-
-/*
 // :::Shared
 //-------------------------------------------------- */
 
 @import "mailing";
 
 $red: rgb(254, 83, 63);
+$violet: #351e77;
 $lightGrey: rgb(230, 230, 230);
 $darkGrey: rgb(38, 38, 38);
 
@@ -117,7 +106,6 @@ section.full-height {
 .scrollTo {
 	cursor: pointer;
 }
-
 
 /*
 // :::Header
@@ -202,6 +190,77 @@ header.in-view, header.open {
 	}
 }
 
+
+/*
+// :::Video Player
+//-------------------------------------------------- */
+
+.letterbox {
+	@mixin flex-center;
+	height: 100%;
+	position: relative;
+	padding: 4rem 15rem;
+}
+
+.r56 {
+	width: 100%;
+	padding-bottom: 56%;
+	position: relative;
+}
+
+.embed-container {
+	@mixin abs-full-size;
+	overflow: hidden;
+}
+
+.embed-container .embed {
+	position: absolute;
+	left: 0;
+	top: -15rem;
+	width: 100%;
+	height: calc(100% + 30rem);
+}
+
+.embed iframe {
+	pointer-events: none;
+	@mixin abs-full-size;
+}
+
+.controls {
+	position: absolute;
+	bottom: -4rem;
+	right: 0%;
+	opacity: .8;
+	transition: .3s;
+
+	.control {
+		width: 2rem;
+	}
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.control {
+	cursor: pointer;
+}
+
+.control--play, .control--pause {
+	display: none;
+}
+
+.player[data-state="playing"] {
+	.control--pause {
+		display: inline-block;
+	}
+}
+
+.player[data-state="paused"] {
+	.control--play {
+		display: inline-block;
+	}
+}
 
 /*
 // :::Misc Shared
@@ -408,7 +467,7 @@ section.player {
 	z-index: 0;
 	width: 100%;
 	height: 100%;
-	background-color: $red;
+	background-color: $violet;
 	cursor: grab;
 
 	&.dragging {
@@ -600,15 +659,17 @@ section.footer {
 	h4 a:hover { color: rgba(102, 102, 102); }
 }
 
-@import "queries";
-
-/* debug */
-
-/* .text-repeater, .screen, canvas { display: none; } */
 /*
-// :::Pre Launch
+// :::By Template
 //-------------------------------------------------- */
 
-.placeholder {
-	.scrollTo { cursor: initial; }
+/*@import "afterglow";*/
+@import "realtime";
+@import "realtimeLive";
+
+body.songkickTour {
+	background-color: black;
 }
+
+
+@import "queries";

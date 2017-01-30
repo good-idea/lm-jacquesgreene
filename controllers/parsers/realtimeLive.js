@@ -3,15 +3,13 @@ function padLeft(str, padLength = 2) {
 	return str;
 }
 
-const afterglow = function afterglow(input) {
+const realtimeLive = function realtimeLive(input) {
 	const content = Object.assign({}, input);
 
+	// -- For BIT supplied livedates
 	const livedates = [];
 	const now = new Date();
-
 	const monthnames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-	// -- For BIT supplied livedates
 
 	for (const livedate of content.live.livedates) {
 		const date = new Date(Date.parse(livedate.datetime));
@@ -26,21 +24,12 @@ const afterglow = function afterglow(input) {
 		}
 	}
 
-	// -- For manually supplied livedates
-	//
-	// for (const livedate of content.live.livedates) {
-	// 	const date = new Date(Date.parse(livedate.date));
-	// 	if (date < now) continue;
-	// 	livedate.date = `${monthnames[date.getMonth()]} ${padLeft(date.getDate())}`;
-	// 	livedates.push(livedate);
-	// }
-
 	// replace the original with the updated content
 	content.live.livedates = livedates;
 
 	content.purchase.copy = content.purchase.copy.replace(/\n/g, '<br />');
 
 	return content;
-};
+}
 
-module.exports = afterglow;
+module.exports = realtimeLive;
