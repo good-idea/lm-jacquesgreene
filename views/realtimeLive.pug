@@ -1,7 +1,35 @@
 include partials/head
 body!= content.meta.additional_head
 
-header.needs-ex
+if (content.impression.select !== 'disabled')
+	if content.impression.select === 'youtube'
+		section.video.full-height
+			.letterbox
+				.r34.player.isLoading
+					.loading
+						.pulse
+							include partials/svg_logotype-box
+					.embed-container
+						.control.control--initial-play(data-control="initial-play")
+						.embed.build-media(data-resource!= content.impression.youtube)
+					.player__sub
+						h5.title
+							| Real time
+							span.live-now
+								i.dot.pulse
+								|  Live Now
+						.controls
+							.control.control--play(data-control="play")
+								img(src='/images/icons_play.png', alt='play')
+							.control.control--pause(data-control="pause")
+								img(src='/images/icons_pause.png', alt='pause')
+							.control.control--fullscreen(data-control="fullscreen")
+								img(src='/images/icons_fullscreen.png', alt='fullscreen')
+	if content.impression.select == 'banner'
+		section.full-height
+			img(src!= content.impression.banner)
+
+section.subscribe-strip
 	.header__info
 		h4 #{ content.mailer.headerTitle }
 	.signup(
@@ -11,7 +39,7 @@ header.needs-ex
 		h5.message
 		form.signup__form.cf(action='/mcsubscribe')
 			input.signup__input(
-				type="text"
+				type="email"
 				name="email_address"
 				placeholder= content.mailer.headerPlaceholder
 				spellcheck="false"
@@ -28,36 +56,7 @@ header.needs-ex
 		.signup__thank-you
 			a.downloadLink(href= content.mailer.headerDownload)
 				h5 #{ content.mailer.headerThankyou }
-	.ex
-		include partials/svg_ex
 
-if (content.impression.select !== 'disabled')
-	if content.impression.select === 'youtube'
-		section.video.full-height
-			.letterbox
-				.r34.player.isLoading
-					.loading
-						.pulse
-							include partials/svg_logotype-box
-					.embed-container
-						.control.control--initial-play(data-control="initial-play")
-						.embed.build-media(data-resource!= content.impression.youtube)
-					.player__sub
-						h5.title
-							| Real time
-							span.live-now
-								i.dot
-								|  Live Now
-						.controls
-							.control.control--play(data-control="play")
-								img(src='/images/icons_play.png', alt='play')
-							.control.control--pause(data-control="pause")
-								img(src='/images/icons_pause.png', alt='pause')
-							.control.control--fullscreen(data-control="fullscreen")
-								img(src='/images/icons_fullscreen.png', alt='fullscreen')
-	if content.impression.select == 'banner'
-		section.full-height
-			img(src!= content.impression.banner)
 
 section.rt-repeater.full-height.scrollTo(
 		data-scrollTo="#purchase"
@@ -145,7 +144,7 @@ section.footer
 	.signup
 		h5.message
 		form.signup__form.cf(action='/mcsubscribe')
-			input.signup__input(type='text', name='email_address', placeholder=content.mailer.footerPlaceholder, spellcheck='false')
+			input.signup__input(type='email', name='email_address', placeholder=content.mailer.footerPlaceholder, spellcheck='false')
 			button.arrow(type='submit')
 				svg(xmlns='http://www.w3.org/2000/svg', width='30', height='15', viewbox='0 0 30 15')
 					g

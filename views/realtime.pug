@@ -11,7 +11,7 @@ header.needs-ex
 		h5.message
 		form.signup__form.cf(action='/mcsubscribe')
 			input.signup__input(
-				type="text"
+				type="email"
 				name="email_address"
 				placeholder= content.mailer.headerPlaceholder
 				spellcheck="false"
@@ -30,7 +30,7 @@ header.needs-ex
 				h5 #{ content.mailer.headerThankyou }
 	.ex
 		include partials/svg_ex
-		
+
 section.top-image.scrollTo(
 	data-scrollTo="#realtime"
 	data-scrollTo-auto="7000"
@@ -117,7 +117,7 @@ section.footer
 	.signup
 		h5.message
 		form.signup__form.cf(action='/mcsubscribe')
-			input.signup__input(type='text', name='email_address', placeholder=content.mailer.footerPlaceholder, spellcheck='false')
+			input.signup__input(type='email', name='email_address', placeholder=content.mailer.footerPlaceholder, spellcheck='false')
 			button.arrow(type='submit')
 				svg(xmlns='http://www.w3.org/2000/svg', width='30', height='15', viewbox='0 0 30 15')
 					g

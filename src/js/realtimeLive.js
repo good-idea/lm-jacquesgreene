@@ -104,8 +104,9 @@ const header = {
 
 	isInView(ypos) {
 		if (!this.emailSubscribed && !this.disabled) {
-			if (this.isMobile) {
+			if (this.isMobile && !this.notified) {
 				const currentY = ypos;
+				this.notified = true;
 				this.element.toggleClass('in-view', ypos < this.lastY);
 				this.lastY = currentY;
 			} else {
@@ -124,18 +125,18 @@ const header = {
 
 header.init();
 
-if ('ontouchstart' in window) $('html').addClass('hasTouchEvents')
+if ('ontouchstart' in window) $('html').addClass('hasTouchEvents');
 
 $(window).on('load', () => {
-	publisher.emit('Loaded')
+	publisher.emit('Loaded');
 
 	if (location.pathname === '/live') {
-		const liveTop = $("#live").offset().top;
+		const liveTop = $('#live').offset().top;
 		console.log('live', liveTop);
 		scrollTo(0, liveTop, { duration: 400 });
 	}
 
-	$(document).on('mousemove', (e) => publisher.emit('MouseMoved', e));
+	$(document).on('mousemove', e => publisher.emit('MouseMoved', e));
 	$(window).on('scroll', () => {
 		publisher.emit('WindowScrolled', $(window).scrollTop());
 	});
