@@ -37,11 +37,8 @@ const types = {
 		playerSource.getIframe().then((response) => {
 			iframe = response;
 		});
-		// console.log(iframe);
 		player.playFullScreen = function playFullScreen() {
-			console.log('full screen!');
 			const requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
-			console.log(requestFullScreen);
 			if (requestFullScreen) {
 				requestFullScreen.bind(iframe)();
 			}
@@ -149,8 +146,6 @@ function buildMedia(inputElement, publisher) {
 		let newVolume = 1 - ((input - 0.5) * 2);
 		newVolume = Math.max(newVolume, 0);
 		newVolume = Math.min(newVolume, 1);
-		// const newVolume = Math.min((input  0.5), 0) * 2;
-		// console.log(newVolume);
 		player.setVolume(newVolume * 100);
 	}
 
