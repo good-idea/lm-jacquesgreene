@@ -1,14 +1,70 @@
-section.impression {
+header {
+  background-color: $red;
+  color: black;
+
+  .header__info, .signup {
+    color: inherit;
+  }
+}
+
+.signup.thinking .downloadLink {
   background: black;
+  color: $red;
 }
 
 section.rt-repeater {
-  background-color: $red;
+  background-color: $violet;
+  background-size: cover;
+  background-image: url("/images/texture-purple-1440.jpg");
   padding: 0 2rem;
+  overflow: hidden;
+
+  .background {
+    @mixin abs-full-size;
+    z-index: 10;
+  }
 
   .text-repeater {
+    position: relative;
+    z-index: 20;
     height: 100%;
     background-size: contain;
 		background-image: url("/images/svgs_realtime.svg");
   }
+}
+
+
+@media only screen and (max-width: 320px) {
+    /* Small screen, non-retina */
+    section.rt-repeater { background-image: url("/images/texture-purple-800.jpg"); }
+}
+@media
+only screen and (min-resolution: 2dppx) and (max-width: 320px) {
+    /* Small screen, retina */
+    section.rt-repeater { background-image: url("/images/texture-purple-800.jpg"); }
+}
+@media only screen and (min-width: 321px) and (max-width: 538px) {
+    /* Medium screen, non-retina */
+    section.rt-repeater { background-image: url("/images/texture-purple-800.jpg"); }
+}
+@media
+only screen and (min-resolution: 2dppx) and (min-width: 321px) and (max-width: 538px) {
+    /* Medium screen, retina */
+    section.rt-repeater { background-image: url("/images/texture-purple-1440.jpg"); }
+}
+@media
+only screen and (min-resolution: 2dppx) and (min-width: 539px) {
+    /* Large screen, retina */
+    section.rt-repeater { background-image: url("/images/texture-purple-1440.jpg"); }
+}
+@media
+only screen and (min-width: 1440px) {
+    /* Large screen, non-retina */
+    section.rt-repeater { background-image: url("/images/texture-purple-2400.jpg"); }
+}
+
+@media
+only screen and (min-resolution: 2dppx) and (min-width: 1200px) {
+    /* Large screen, retina */
+    section.rt-repeater { background-image: url("/images/texture-purple-2400.jpg"); }
 }

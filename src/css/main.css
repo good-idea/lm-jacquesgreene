@@ -107,6 +107,10 @@ section.full-height {
 	cursor: pointer;
 }
 
+.text-repeater {
+	will-change: background-position;
+}
+
 /*
 // :::Header
 //-------------------------------------------------- */
@@ -136,6 +140,8 @@ header {
 		opacity: 0;
 		display: block;
 		cursor: pointer;
+		stroke: currentColor;
+		stroke-width: 2;
 	}
 
 	.header__socials { display: none; }
@@ -195,16 +201,22 @@ header.in-view, header.open {
 // :::Video Player
 //-------------------------------------------------- */
 
-.letterbox {
+section.video {
 	@mixin flex-center;
-	height: 100%;
-	position: relative;
-	padding: 4rem 15rem;
+  background: black;
+  padding: 9rem 0;
+	min-height: 100vh;
 }
 
-.r56 {
+
+.letterbox {
+	width: 110vh;
+	max-width: calc(100vw - 2rem);
+}
+
+.r34 {
 	width: 100%;
-	padding-bottom: 56%;
+	padding-bottom: 75%;
 	position: relative;
 }
 
@@ -226,10 +238,27 @@ header.in-view, header.open {
 	@mixin abs-full-size;
 }
 
-.controls {
+.player__sub {
 	position: absolute;
 	bottom: -4rem;
-	right: 0%;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	text-transform: uppercase;
+}
+
+.live-now {
+	color: $red;
+	margin-left: 2em;
+
+	.dot {
+		vertical-align: top;
+		margin-top: -0.1em;
+	}
+}
+
+
+.controls {
 	opacity: .8;
 	transition: .3s;
 
@@ -252,7 +281,7 @@ header.in-view, header.open {
 
 .player {
 	color: white;
-	
+
 	.embed-container {
 		transition: 0.6s;
 		transition-delay: .3s;

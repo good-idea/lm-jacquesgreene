@@ -29,13 +29,13 @@ header.needs-ex
 			a.downloadLink(href= content.mailer.headerDownload)
 				h5 #{ content.mailer.headerThankyou }
 	.ex
-		img(src='/images/icons_ex.svg')
+		include partials/svg_ex
 
 if (content.impression.select !== 'disabled')
-	section.impression.full-height
-		if content.impression.select === 'youtube'
+	if content.impression.select === 'youtube'
+		section.video.full-height
 			.letterbox
-				.r56.player(data-state="buffering")
+				.r34.player(data-state="buffering")
 					.thinking__dots
 						.thinking__dot
 						.thinking__dot
@@ -43,18 +43,35 @@ if (content.impression.select !== 'disabled')
 					.embed-container
 						.control.control--initial-play(data-control="initial-play")
 						.embed.build-media(data-resource!= content.impression.youtube)
-					.controls
-						.control.control--play(data-control="play")
-							img(src='/images/icons_play.png', alt='play')
-						.control.control--pause(data-control="pause")
-							img(src='/images/icons_pause.png', alt='pause')
-		if content.impression.select == 'banner'
+					.player__sub
+						h5.title
+							| Real time
+							span.live-now
+								span.dot
+									| ⬤
+								|  Live Now
+						.controls
+							.control.control--play(data-control="play")
+								img(src='/images/icons_play.png', alt='play')
+							.control.control--pause(data-control="pause")
+								img(src='/images/icons_pause.png', alt='pause')
+	if content.impression.select == 'banner'
+		section.full-height
 			img(src!= content.impression.banner)
 
 section.rt-repeater.full-height.scrollTo(
-		data-scrollTo="#realtime"
+		data-scrollTo="#purchase"
 	)
 	.text-repeater.bg-scroller(data-direction="vertical")
+
+section#purchase.purchase
+	.packshots
+		.packshot.packshot--primary(style="background-image: url(" + content.purchase.background + ")")
+		.packshot.packshot--reverse(style="background-image: url(" + content.purchase.backgroundReverse + ")")
+	.purchase__info
+		h4.purchase__copy !{ content.purchase.copy }
+		a.purchase__button(href= content.purchase.link target="_blank")
+			h4 #{ content.purchase.buttonCopy }
 
 section#realtime.full-height.player(
 	data-fallback= content.player.fallbackId
@@ -86,21 +103,12 @@ section#realtime.full-height.player(
 	.player__scrubber
 
 section.top-image.scrollTo(
-	data-scrollTo="#purchase"
+	data-scrollTo="#tour"
 	)
 	img.full(
-		src="/images/realtime-bottom--large.jpg"
-		srcset="/images/realtime-bottom--small.jpg 400w, /images/realtime-bottom--medium.jpg 800w, /images/realtime-bottom--large.jpg 1440w, /images/realtime-bottom--xlarge.jpg 2400w"
+		src="/images/realtime-top--large.jpg"
+		srcset="/images/realtime-top--small.jpg 400w, /images/realtime-top--medium.jpg 800w, /images/realtime-top--large.jpg 1440w, /images/realtime-top--xlarge.jpg 2400w"
 	)
-
-section#purchase.purchase
-	.packshots
-		.packshot.packshot--primary(style="background-image: url(" + content.purchase.background + ")")
-		.packshot.packshot--reverse(style="background-image: url(" + content.purchase.backgroundReverse + ")")
-	.purchase__info
-		h4.purchase__copy !{ content.purchase.copy }
-		a.purchase__button(href= content.purchase.link target="_blank")
-			h4 #{ content.purchase.buttonCopy }
 
 section#live.tour
 	ul.tourdates
@@ -116,8 +124,8 @@ section#live.tour
 
 section.top-image
 	img.full(
-		src="/images/realtime-top--large.jpg"
-		srcset="/images/realtime-top--small.jpg 400w, /images/realtime-top--medium.jpg 800w, /images/realtime-top--large.jpg 1440w"
+		src="/images/realtime-bottom--large.jpg"
+		srcset="/images/realtime-bottom--small.jpg 400w, /images/realtime-bottom--medium.jpg 800w, /images/realtime-bottom--large.jpg 1440w"
 	)
 
 section.logo
