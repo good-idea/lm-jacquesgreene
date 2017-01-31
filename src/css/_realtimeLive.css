@@ -2,6 +2,7 @@ section.subscribe-strip,
 header {
   background-color: $red;
   color: black;
+  padding: 3rem 0 3.5rem;
 
   .header__info, .signup {
     color: inherit;
