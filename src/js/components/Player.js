@@ -27,7 +27,6 @@ class Player {
 		// this.background = this.element.find('.player__pulse');
 		this.background = this.pauseButton;
 
-
 		this.debugTime = Date.now();
 
 		this.publisher.subscribe('FrameRequested', this.handleFrameRequest);

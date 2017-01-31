@@ -68,3 +68,11 @@ only screen and (min-resolution: 2dppx) and (min-width: 1200px) {
     /* Large screen, retina */
     section.rt-repeater { background-image: url("/images/texture-purple-2400.jpg"); }
 }
+
+
+@media screen and (max-width: 430px) {
+  .live-now {
+    display: block;
+    margin-left: 0;
+  }
+}

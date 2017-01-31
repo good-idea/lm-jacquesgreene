@@ -50,6 +50,8 @@ $darkGrey: rgb(38, 38, 38);
 $beige: rgb(239, 230, 214);
 $tan: rgb(255, 238, 236);
 
+svg { width: 100%; }
+
 section {
 	position: relative; z-index: 50;
 
@@ -223,6 +225,7 @@ section.video {
 .embed-container {
 	@mixin abs-full-size;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .embed-container .embed {
@@ -231,16 +234,12 @@ section.video {
 	top: -15rem;
 	width: 100%;
 	height: calc(100% + 30rem);
-}
-
-.embed iframe {
 	pointer-events: none;
-	@mixin abs-full-size;
 }
 
 .player__sub {
 	position: absolute;
-	bottom: -4rem;
+	top: calc(100% + 2rem);
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -252,26 +251,37 @@ section.video {
 	margin-left: 2em;
 
 	.dot {
-		vertical-align: top;
-		margin-top: -0.1em;
+		/*vertical-align: top;*/
+		/*margin-top: -0.1em;*/
 	}
 }
 
+i.dot {
+	width: 1em;
+	height: 1em;
+	background-color: currentColor;
+	border-radius: 1em;
+	display: inline-block;
+	margin: 0 .5em -0.2em 0;
+}
 
 .controls {
 	opacity: .8;
 	transition: .3s;
 
-	.control {
-		width: 2rem;
-	}
 
 	&:hover {
 		opacity: 1;
 	}
+
+	.control + .control {
+		margin-left: 1em;
+	}
 }
 
 .control {
+	width: 2rem;
+	display: inline-block;
 	cursor: pointer;
 }
 
@@ -284,7 +294,7 @@ section.video {
 
 	.embed-container {
 		transition: 0.6s;
-		transition-delay: .3s;
+		transition-delay: 2.8s;
 	}
 
 	.thinking__dots {
@@ -292,15 +302,43 @@ section.video {
 		transition: .3s;
 	}
 
+	.loading {
+		@mixin abs-full-size;
+		@mixin flex-center;
+		opacity: 0;
+		pointer-events: none;
+		z-index: 20;
+		padding: 5rem;
+		transition: .4s;
+
+		svg {
+			fill: white;
+		}
+	}
+
+	.player__sub,
+	.loading {
+		transition-delay: 2s;
+	}
 }
 
-.player[data-state="buffering"] {
-	.embed-container, .controls {
+.player.isLoading {
+	.embed-container, .player__sub {
 		opacity: 0;
 	}
 
-	.thinking__dots {
+	.loading {
 		opacity: 1;
+	}
+}
+
+.hasTouchEvents .player {
+	.embed-container, .player__sub {
+		opacity: 1;
+	}
+
+	.loading {
+		display: none;
 	}
 }
 
@@ -310,10 +348,20 @@ section.video {
 	}
 }
 
-.player[data-state="paused"] {
+.player[data-state="paused"],
+.player[data-state="buffering"] {
 	.control--play {
 		display: inline-block;
 	}
+}
+
+.pulse {
+	animation: pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+	0%, 50%, 100% { opacity: 1; }
+	75% { opacity: 0; }
 }
 
 /*

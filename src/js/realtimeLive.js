@@ -124,6 +124,7 @@ const header = {
 
 header.init();
 
+if ('ontouchstart' in window) $('html').addClass('hasTouchEvents')
 
 $(window).on('load', () => {
 	publisher.emit('Loaded')

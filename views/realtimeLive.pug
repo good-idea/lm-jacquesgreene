@@ -35,11 +35,10 @@ if (content.impression.select !== 'disabled')
 	if content.impression.select === 'youtube'
 		section.video.full-height
 			.letterbox
-				.r34.player(data-state="buffering")
-					.thinking__dots
-						.thinking__dot
-						.thinking__dot
-						.thinking__dot
+				.r34.player.isLoading
+					.loading
+						.pulse
+							include partials/svg_logotype-box
 					.embed-container
 						.control.control--initial-play(data-control="initial-play")
 						.embed.build-media(data-resource!= content.impression.youtube)
@@ -47,14 +46,15 @@ if (content.impression.select !== 'disabled')
 						h5.title
 							| Real time
 							span.live-now
-								span.dot
-									| ⬤
+								i.dot
 								|  Live Now
 						.controls
 							.control.control--play(data-control="play")
 								img(src='/images/icons_play.png', alt='play')
 							.control.control--pause(data-control="pause")
 								img(src='/images/icons_pause.png', alt='pause')
+							.control.control--fullscreen(data-control="fullscreen")
+								img(src='/images/icons_fullscreen.png', alt='fullscreen')
 	if content.impression.select == 'banner'
 		section.full-height
 			img(src!= content.impression.banner)
@@ -103,7 +103,7 @@ section#realtime.full-height.player(
 	.player__scrubber
 
 section.top-image.scrollTo(
-	data-scrollTo="#tour"
+	data-scrollTo="#live"
 	)
 	img.full(
 		src="/images/realtime-top--large.jpg"

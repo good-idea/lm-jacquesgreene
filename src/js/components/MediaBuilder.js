@@ -23,6 +23,29 @@ const types = {
 		player.play = playerSource.playVideo;
 		player.pause = playerSource.pauseVideo;
 		player.setVolume = playerSource.setVolume;
+		player.togglePlay = function togglePlay() {
+			playerSource.getPlayerState().then((state) => {
+				if (state === 1) {
+					playerSource.pauseVideo();
+				} else {
+					playerSource.playVideo();
+				}
+			});
+		};
+
+		let iframe;
+		playerSource.getIframe().then((response) => {
+			iframe = response;
+		});
+		// console.log(iframe);
+		player.playFullScreen = function playFullScreen() {
+			console.log('full screen!');
+			const requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+			console.log(requestFullScreen);
+			if (requestFullScreen) {
+				requestFullScreen.bind(iframe)();
+			}
+		};
 
 		player.emitter = new Emitter();
 
@@ -76,6 +99,7 @@ function buildMedia(inputElement, publisher) {
 	const element = $(inputElement);
 	const container = element.closest('.player');
 	const outerContainer = element.closest('section');
+	const embedContainer = element.closest('.embed-container');
 	const resource = element.attr('data-resource');
 	const autoplay = element.attr('data-autoplay') || true;
 	const type = getContentType(resource, element);
@@ -95,15 +119,22 @@ function buildMedia(inputElement, publisher) {
 	controls.container = container.find('.controls');
 	controls.play = controls.container.find('.control--play');
 	controls.pause = controls.container.find('.control--pause');
+	controls.fullscreen = controls.container.find('.control--fullscreen');
 
-	controls.play.on('click', () => player.play());
-	controls.pause.on('click', () => player.pause());
+	controls.play.on('click', player.play);
+	controls.pause.on('click', player.pause);
+	controls.fullscreen.on('click', player.playFullScreen);
+	console.log(element);
+	embedContainer.on('click', player.togglePlay);
 
 	/*
 		Events
 	*/
 
 	function onStateChange(newState) {
+		const date = new Date();
+		console.log(`state change: ${newState} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
+		if (newState !== 'buffering') container.removeClass('isLoading');
 		container.attr('data-state', newState);
 	}
 
