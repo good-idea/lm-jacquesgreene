@@ -44,7 +44,7 @@ exports.Index = (req, res) => {
 		content.meta = parsers.combineMeta(site.content.meta, homepage.content.meta);
 
 		if (req.query.content === 'true') {
-			res.json(content);
+			return res.json(content);
 		}
 
 		return res.render(template,
