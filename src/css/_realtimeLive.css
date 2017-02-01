@@ -47,7 +47,7 @@ only screen and (min-resolution: 2dppx) and (max-width: 320px) {
 }
 @media only screen and (min-width: 321px) and (max-width: 538px) {
     /* Medium screen, non-retina */
-    section.rt-repeater { background-image: url("/images/texture-purple-800.jpg"); }
+    section.rt-repeater { background-image: url("/images/texture-purple-1400.jpg"); }
 }
 @media
 only screen and (min-resolution: 2dppx) and (min-width: 321px) and (max-width: 538px) {

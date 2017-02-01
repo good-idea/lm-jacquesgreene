@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const json5 = require('json5');
-const rev = require('git-rev');
+const rev = require('git-rev-sync');
 const axios = require('axios');
 const redis = require('redis');
 const Q = require('q');
@@ -27,9 +27,9 @@ exports.getDirContents = function getDirContents(directory) {
 
 exports.getRevision = function getRevision() {
 	const revision = {};
-	rev.short((str) => { revision.short = str; });
-	rev.long((str) => { revision.long = str; });
-	rev.branch((str) => { revision.branch = str; });
+	revision.short = rev.short();
+	revision.long = rev.long();
+	revision.branch = rev.branch();
 	return revision;
 };
 

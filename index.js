@@ -11,7 +11,7 @@ app.use(responseTime());
 
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { maxage: '14d' }));
 
 const HomeController = require('./controllers/HomeController');
 const UtilitiesController = require('./controllers/UtilitiesController');
