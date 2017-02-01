@@ -26,6 +26,17 @@ exports.getDirContents = function getDirContents(directory) {
 };
 
 exports.getRevision = function getRevision() {
+	// FIX!!
+	// Don’t use synchronous functions
+	// Synchronous functions and methods tie up the executing process until they return. A single call
+	// to a synchronous function might return in a few microseconds or milliseconds, however in
+	// high-traffic websites, these calls add up and reduce the performance of the app. Avoid their
+	// use in production.
+	//
+	// Although Node and many modules provide synchronous and asynchronous versions of their functions,
+	// always use the asynchronous version in production. The only time when a synchronous function can
+	// be justified is upon initial startup.
+	//
 	const revision = {};
 	revision.short = rev.short();
 	revision.long = rev.long();
