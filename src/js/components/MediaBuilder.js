@@ -173,7 +173,7 @@ function buildMedia(inputElement, publisher) {
 }
 
 function mediaBuilder(element, publisher) {
-	// return buildMedia(element, publisher);
+	return buildMedia(element, publisher);
 }
 
 export default mediaBuilder;
