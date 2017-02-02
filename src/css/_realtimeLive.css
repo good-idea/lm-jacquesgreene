@@ -9,6 +9,11 @@ header {
   }
 }
 
+section.realtimelive .embed-container .embed {
+  width: 134%;
+  left: -17%;
+}
+
 .signup.thinking .downloadLink {
   background: black;
   color: $red;
