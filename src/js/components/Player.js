@@ -21,6 +21,7 @@ class Player {
 		const trackUrl = $(this.element).attr('data-track');
 		this.id = trackUrl;
 		this.fallbackId = $(this.element).attr('data-fallback');
+		this.fallbackKey = $(this.element).attr('data-fallback-key');
 		this.playButton = this.element.find('.player__controls.play');
 		this.pauseButton = this.element.find('.player__controls.pause');
 		this.scrubber = this.element.find('.player__scrubber');
@@ -72,7 +73,8 @@ class Player {
 		if (this.fellBack) return false;
 		this.fellBack = true;
 		const fallBack = $('<iframe/>');
-		fallBack.attr('src', `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${this.fallbackId}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true`)
+		const fallBackSrc = `https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${this.fallbackId}%3Fsecret_token%3D${this.fallbackKey}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true`;
+		fallBack.attr('src', fallBackSrc)
 			.attr('scrolling', 'no')
 			.attr('frameborder', 'no');
 		this.element.addClass('fallback')
