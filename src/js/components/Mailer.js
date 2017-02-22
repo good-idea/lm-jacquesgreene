@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import axios from 'axios';
 import Cookie from 'js-cookie';
-import download from 'downloadjs';
 
 
 class Mailer {

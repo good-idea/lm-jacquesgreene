@@ -105,8 +105,7 @@ function buildMedia(inputElement, publisher) {
 		return false;
 	}
 	const player = types[type](resource, element);
-	let min = 0;
-	let max = 0;
+
 
 	/*
 		Controls
@@ -121,7 +120,6 @@ function buildMedia(inputElement, publisher) {
 	controls.play.on('click', player.play);
 	controls.pause.on('click', player.pause);
 	controls.fullscreen.on('click', player.playFullScreen);
-	console.log(element);
 	embedContainer.on('click', player.togglePlay);
 
 	/*
@@ -130,7 +128,6 @@ function buildMedia(inputElement, publisher) {
 
 	function onStateChange(newState) {
 		const date = new Date();
-		console.log(`state change: ${newState} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
 		if (newState !== 'buffering') container.removeClass('isLoading');
 		container.attr('data-state', newState);
 	}
@@ -138,34 +135,48 @@ function buildMedia(inputElement, publisher) {
 	player.emitter.on('stateChange', onStateChange);
 
 	/*
-		..
+		Functions
 	*/
 
 	function setVolume(input) {
-		// let newVolume = 2 - Math.min((input * 2) - 1, 0);
-		let newVolume = 1 - ((input - 0.5) * 2);
-		newVolume = Math.max(newVolume, 0);
-		newVolume = Math.min(newVolume, 1);
-		player.setVolume(newVolume * 100);
+		player.setVolume(input * 100);
 	}
 
+	let top = 0;
+	let height = 0;
+	let wheight = 0;
+	let oversize = 1;
 	function calculate() {
-		min = outerContainer.offset().top;
-		max = min + outerContainer.outerHeight(true);
+		top = outerContainer.offset().top;
+		height = outerContainer.outerHeight(true);
+		// wheight = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		wheight = $(window).height();
+		oversize = Math.max(1, (height / wheight));
 	}
 
 	function inView(ypos) {
-		let percentage = ((ypos - min) / max);
-		percentage = Math.min(Math.max(0, percentage), 1);
+		let percentage = 1;
+		const hiddenBefore = ypos - top;
+		const hiddenAfter = (top + height) - (ypos + wheight);
+
+		if (hiddenBefore > 0) percentage -= (hiddenBefore) / height;
+		if (hiddenAfter > 0) percentage -= (hiddenAfter) / height;
+
+		percentage *= oversize; // If the div is bigger than the screen, it needs to be multiplied
+		percentage = Math.min(1, percentage); // not greater than 1
+		percentage = Math.max(0, percentage); // nor less than 0
+
 		setVolume(percentage);
 	}
 
 	function initialize() {
+		setVolume(0);
 		if (autoplay) player.play();
 	}
 
 	publisher.subscribe('WindowScrolled', inView);
 	publisher.subscribe('Loaded', calculate);
+	publisher.subscribe('Recalculate', calculate);
 
 	initialize();
 

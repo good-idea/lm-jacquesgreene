@@ -1,9 +1,72 @@
 include partials/head
 body!= content.meta.additional_head
 
+section.top-image.scrollTo(
+	data-scrollTo="#realtime"
+	data-scrollTo-auto="7000"
+)
+	img.full(
+		src="/images/realtime-banner--large.jpg"
+		srcset=" /images/realtime-banner--small.jpg 400w, /images/realtime-banner--medium.jpg 800w, /images/realtime-banner--large.jpg 1440w, /images/realtime-banner--large.jpg 2400w"
+	)
+
+section#realtime.full-height.player(
+	data-fallback= content.player.fallbackId
+	data-fallback-key= content.player.fallbackKey
+	data-track= content.player.url
+	data-nothing="something"
+)
+	.player__inner
+		.player__header
+
+			p!= content.player.soundcloud.fallbackId
+			each item in content.player.header
+				h4
+					a(target="_blank" href=item.link) #{ item.copy }
+
+		#player.player__buttons
+			.player__playpause
+				svg.player__controls.play(width='80', height='80', viewbox='0 0 80 80')
+					polygon(points='75 40 5 75 5 5 75 40 75 40')
+				svg.player__controls.pause(width='80', height='80', viewbox='0 0 80 80')
+					rect(x='5', y='5', width='70', height='70')
+
+		.player__footer
+			each item in content.player.footer
+				h4 #{ item.copy }
+
+	audio.track(src="" preload autobuffer)
+	.screen
+	.screen.overlay
+	.player__scrubber
+
+
+section#purchase.purchase
+	.packshots
+		.packshot.packshot--primary(style="background-image: url(" + content.purchase.background + ")")
+		.packshot.packshot--reverse(style="background-image: url(" + content.purchase.backgroundReverse + ")")
+	.purchase__info
+		h4.purchase__copy !{ content.purchase.copy }
+		a.purchase__button(href= content.purchase.link target="_blank")
+			h4 #{ content.purchase.buttonCopy }
+
+
+section#live.tour
+	ul.tourdates
+		each date in content.live.livedates
+			li.tourdate
+				a(href= date.ticket_url target="_blank")
+					span.date #{ date.date }
+					span.place
+						span.venue #{ date.venue.name }
+						span.location #{ date.location }
+					span.ticket-link
+						| View Event
+
+
 if (content.impression.select !== 'disabled')
 	if content.impression.select === 'youtube'
-		section.video.full-height.realtimelive
+		section.video.realtimelive(style="height: 900px")
 			.letterbox
 				.r34.player.isLoading
 					.loading
@@ -58,74 +121,13 @@ section.subscribe-strip
 				h5 #{ content.mailer.headerThankyou }
 
 
-section.rt-repeater.full-height.scrollTo(
-		data-scrollTo="#purchase"
-	)
+section.rt-repeater.full-height
 	.text-repeater.bg-scroller(data-direction="vertical")
 
-section#purchase.purchase
-	.packshots
-		.packshot.packshot--primary(style="background-image: url(" + content.purchase.background + ")")
-		.packshot.packshot--reverse(style="background-image: url(" + content.purchase.backgroundReverse + ")")
-	.purchase__info
-		h4.purchase__copy !{ content.purchase.copy }
-		a.purchase__button(href= content.purchase.link target="_blank")
-			h4 #{ content.purchase.buttonCopy }
-
-section#realtime.full-height.player(
-	data-fallback= content.player.fallbackId
-	data-fallback-key= content.player.fallbackKey
-	data-track= content.player.url
-	data-nothing="something"
-)
-	.player__inner
-		.player__header
-
-			p!= content.player.soundcloud.fallbackId
-			each item in content.player.header
-				h4
-					a(target="_blank" href=item.link) #{ item.copy }
-
-		#player.player__buttons
-			.player__playpause
-				svg.player__controls.play(width='80', height='80', viewbox='0 0 80 80')
-					polygon(points='75 40 5 75 5 5 75 40 75 40')
-				svg.player__controls.pause(width='80', height='80', viewbox='0 0 80 80')
-					rect(x='5', y='5', width='70', height='70')
-
-		.player__footer
-			each item in content.player.footer
-				h4 #{ item.copy }
-
-	audio.track(src="" preload autobuffer)
-	.screen
-	.screen.overlay
-	.player__scrubber
-
-section.top-image.scrollTo(
-	data-scrollTo="#live"
-	)
+section.top-image.scrollTo
 	img.full(
 		src="/images/realtime-top--large.jpg"
 		srcset="/images/realtime-top--small.jpg 400w, /images/realtime-top--medium.jpg 800w, /images/realtime-top--large.jpg 1440w, /images/realtime-top--xlarge.jpg 2400w"
-	)
-
-section#live.tour
-	ul.tourdates
-		each date in content.live.livedates
-			li.tourdate
-				a(href= date.ticket_url target="_blank")
-					span.date #{ date.date }
-					span.place
-						span.venue #{ date.venue.name }
-						span.location #{ date.location }
-					span.ticket-link
-						| View Event
-
-section.top-image
-	img.full(
-		src="/images/realtime-bottom--large.jpg"
-		srcset="/images/realtime-bottom--small.jpg 400w, /images/realtime-bottom--medium.jpg 800w, /images/realtime-bottom--large.jpg 1440w"
 	)
 
 section.logo
