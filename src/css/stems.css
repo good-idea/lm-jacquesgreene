@@ -1,0 +1,91 @@
+@import "reset";
+@import "mixins";
+
+/*
+// :::Type
+// ::: "goudy-old-style"
+//-------------------------------------------------- */
+
+@font-face {
+	font-family: "Maison Neue Mono";
+	src:
+		url("/fonts/maisonneue-mono-webfont.woff2") format("woff2"),
+		url("/fonts/maisonneue-mono-webfont.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+$mono: "Maison Neue Mono", "Andale Mono", AndaleMono, "Consolas", consolas, monospace;
+
+body { font-family: $mono; line-height: 1.6; }
+h1 { font-size: 2.4rem; }
+h2 { font-size: 3.8rem; }
+h3 { font-size: 2.1rem; }
+h4, p, li, input { font-size: 1.25rem; }
+h5 { font-size: 1.25rem; }
+
+h1, h2, h3, h4 { font-weight: 500; }
+
+p + p { margin-top: 1rem; }
+
+strong { font-weight: 700; }
+em { font-style: italic; }
+
+a { cursor: pointer; }
+a { transition: .1s; }
+
+/**
+ * Main
+ */
+
+body {
+	background-color: black;
+	color: white;
+	padding: 5rem;
+}
+
+
+pre {
+	line-height: 110%;
+}
+
+/**
+ * Colors
+ */
+
+$red: #d80000;
+$redOrange: #d62d26;
+$blue: #00ffff;
+$yellow: #edff49;
+$mint: #3dba47;
+$pink: #ff8cad;
+$green: #00f247;
+$cream: #f2ff77;
+$purple: #496bd1;
+
+.red { color: $red; }
+.redOrange { color: $redOrange; }
+.blue { color: $blue; }
+.yellow { color: $yellow; }
+.mint { color: $mint; }
+.pink { color: $pink; }
+.green { color: $green; }
+.cream { color: $cream; }
+.purple { color: $purple; }
+
+/**
+ * Groups
+ */
+
+.groups {
+	margin-top: 5rem;
+
+	h1 {
+		text-transform: uppercase;
+		margin-bottom: 5rem;
+	}
+}
+
+.group + .group {
+	margin-top: 2rem;
+}

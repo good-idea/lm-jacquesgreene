@@ -48,7 +48,7 @@ exports.getRevision = function getRevision() {
 exports.getSite = function getApiData(req, siteSlug = 'jacquesgreene') {
 	const deferred = Q.defer();
 	client.get('sitedata', (err, cached) => {
-		if (cached) {
+		if (cached && req.query.cache !== 'false') {
 			deferred.resolve(JSON.parse(cached));
 		} else {
 			const host = (req.query.production === 'true') ? '205.186.136.28' : 'localhost';

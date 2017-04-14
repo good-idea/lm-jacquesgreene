@@ -1,0 +1,15 @@
+include partials/head
+body!= content.meta.additional_head
+
+main.stems
+	include partials/stemTextPic.html
+
+	.groups
+		h1 Jacques Greene - Feel Infinite
+			span.small  [Stems, 2017]
+		each group in content.stems.groups
+			.group
+				p.group__title !{group.title}
+				each stem in group.links
+					p.group__stem
+						a(target="_blank" href=stem.href) !{stem.stemTitle}
