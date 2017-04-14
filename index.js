@@ -20,6 +20,7 @@ const UtilitiesController = require('./controllers/UtilitiesController');
 
 app.post('/mcsubscribe', UtilitiesController.MCSubscribe);
 app.get('/tour2017', HomeController.SongkickEmbed);
+app.get('/stems', HomeController.Stems);
 app.get('/:param?', HomeController.Index);
 
 exports.app = app;
