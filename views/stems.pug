@@ -14,7 +14,8 @@ main.stems.column
 					div.group__links
 						each stem in group.links
 							p.group__stem
-								a(target="_blank" href=stem.href) !{stem.display}
+								a(target="_blank" href=stem.href)
+									span !{stem.display}
 
 	.remixes
 		h1.title Remixes So Far

@@ -154,6 +154,29 @@ h1.title {
 	margin-top: 2rem;
 }
 
+.group__stem {
+
+	a {
+		position: relative;
+		display: block;
+	}
+
+	a:before {
+		content: "[ download ]";
+		display: none;
+	}
+
+	a:hover {
+		&:before {
+			display: inline-block;
+		}
+
+		span {
+			display: none;
+		}
+	}
+}
+
 .remixes {
 	margin-top: 5rem;
 
