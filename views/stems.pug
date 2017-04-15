@@ -10,7 +10,7 @@ main.stems.column
 		ol
 			each group in content.stems.groups
 				li.group !{group.title}
-					span.bpm [123bpm]
+					span.bpm [!{group.bpm}bpm]
 					div.group__links
 						each stem in group.links
 							p.group__stem

@@ -158,8 +158,10 @@ h1.title {
 
 	a {
 		position: relative;
-		display: block;
+		display: inline-block;
+		width: 100%;
 	}
+	
 
 	a:before {
 		content: "[ download ]";
