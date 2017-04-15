@@ -1,6 +1,9 @@
 @import "reset";
 @import "mixins";
 
+https://s3.amazonaws.com/luckymedia/_RELEASES/JG-STEMS-/02+-+Feel+Infinite+%5B135bpm%5D/FI+-+808+Snare.aif
+http://luckymedia.s3.amazonaws.com/_RELEASES/JG-STEMS-/02%20-%20Feel%20Infinite%20%5B135bpm%5D/FI%20-%20808%20Snare.aif
+https://luckymedia.s3.amazonaws.com/_RELEASES/JG-STEMS-/02%20-%20Feel%20Infinite%20%5B135bpm%5D/FI%20-%20808%20Snare.aif
 /*
 // :::Type
 // ::: "goudy-old-style"
@@ -18,10 +21,10 @@
 $mono: "Maison Neue Mono", "Andale Mono", AndaleMono, "Consolas", consolas, monospace;
 
 body { font-family: $mono; line-height: 1.6; }
-h1 { font-size: 2.4rem; }
+h1 { font-size: 2.6rem; }
 h2 { font-size: 3.8rem; }
 h3 { font-size: 2.1rem; }
-h4, p, li, input { font-size: 1.25rem; }
+h4, p, li, input, h1 .small { font-size: 1.25rem; }
 h5 { font-size: 1.25rem; }
 
 h1, h2, h3, h4 { font-weight: 500; }
@@ -34,6 +37,16 @@ em { font-style: italic; }
 a { cursor: pointer; }
 a { transition: .1s; }
 
+span.small { margin-left: 1em; }
+
+@media screen and (max-width: 550px) {
+	h1 { font-size: 2.2rem }
+	h3 { font-size: 1.6rem }
+	h4, p, li, input, h1 .small { font-size: 1.2rem; }
+	h5 { font-size: 1rem; }
+}
+
+
 /**
  * Main
  */
@@ -44,8 +57,13 @@ body {
 	padding: 5rem;
 }
 
+.column {
+	width: 100rem;
+	max-width: 100%;
+}
 
 pre {
+	font-family: 'Roboto Mono', $mono;
 	line-height: 110%;
 }
 
@@ -77,15 +95,79 @@ $purple: #496bd1;
  * Groups
  */
 
+h1.title {
+ text-transform: uppercase;
+ margin-bottom: .5em;
+}
+
 .groups {
 	margin-top: 5rem;
 
-	h1 {
-		text-transform: uppercase;
-		margin-bottom: 5rem;
+	ol {
+		margin-top: 5rem;
+
+		li {
+			counter-increment: items;
+		}
+
+		li:before {
+			content: "0" counter(items)" - ";
+		}
+
+		li:nth-of-type(n+10):before {
+			content: counter(items)" - ";
+		}
+
+		p {
+			margin: 0 auto;
+			white-space: nowrap;
+		}
+
+		p:before {
+			content: '-------';
+			opacity: 0;
+			user-select: none;
+		}
 	}
+
+	.bpm {
+		float: right;
+	}
+
+}
+
+.group {
+	width: 35rem;
+
+	&:nth-of-type(9n - 8) { color: $yellow; }
+	&:nth-of-type(9n - 7) { color: $redOrange; }
+	&:nth-of-type(9n - 6) { color: $mint; }
+	&:nth-of-type(9n - 5) { color: $blue; }
+	&:nth-of-type(9n - 4) { color: $pink; }
+	&:nth-of-type(9n - 3) { color: $red; }
+	&:nth-of-type(9n - 2) { color: $cream; }
+	&:nth-of-type(9n - 1) { color: $purple; }
+	&:nth-of-type(9n) { color: $green; }
 }
 
 .group + .group {
 	margin-top: 2rem;
+}
+
+.remixes {
+	margin-top: 5rem;
+
+}
+
+.remix {
+	text-transform: uppercase;
+	white-space: nowrap;
+
+	a {
+		text-decoration: underline;
+	}
+}
+
+.legal {
+	margin-top: 5rem;
 }

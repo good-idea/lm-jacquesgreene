@@ -1,15 +1,27 @@
 include partials/head
 body!= content.meta.additional_head
 
-main.stems
+main.stems.column
 	include partials/stemTextPic.html
 
 	.groups
-		h1 Jacques Greene - Feel Infinite
+		h1.title Jacques Greene - Feel Infinite
 			span.small  [Stems, 2017]
-		each group in content.stems.groups
-			.group
-				p.group__title !{group.title}
-				each stem in group.links
-					p.group__stem
-						a(target="_blank" href=stem.href) !{stem.display}
+		ol
+			each group in content.stems.groups
+				li.group !{group.title}
+					span.bpm [123bpm]
+					div.group__links
+						each stem in group.links
+							p.group__stem
+								a(target="_blank" href=stem.href) !{stem.display}
+
+	.remixes
+		h1.title Remixes So Far
+			span.small  [Spotify]
+		each remix in content.remixes.remixes
+			h3.remix
+				| !{remix.title} -&nbsp;
+				a(target="_blank" href=remix.href) !{remix.artist}
+				|  RMX
+		h5.legal !{content.remixes.legal}
